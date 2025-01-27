@@ -31,6 +31,8 @@ Route::view('/competition', 'pages.competition')->name('competition');
 // submitions routes
 Route::view('/submitions', 'pages.submitions')->name('submitions');
 Route::get('/student/submissions', [StudentController::class, 'getStudentSubmissions']);
+Route::get('/get-unique-classes', [StudentController::class, 'getUniqueClasses']);
+
 
 // Define other routes for filtering, refetching data, etc.
 
@@ -51,8 +53,11 @@ require __DIR__.'/auth.php';
 Route::get('/get-class', function () {
     try {
         $class = Cookie::get('class');
+        Log::info('Cookie class:', ['class' => $class]);
+
         if ($class) {
             $decryptedClass = Crypt::decryptString($class);
+            Log::info('Decrypted class:', ['class' => $decryptedClass]);
             return response()->json(['class' => $decryptedClass]);
         }
     } catch (\Exception $e) {
@@ -61,4 +66,3 @@ Route::get('/get-class', function () {
     }
     return response()->json(['class' => null]);
 });
-

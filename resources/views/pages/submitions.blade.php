@@ -19,10 +19,9 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Determine the user class from the server and show relevant options
         getUserClassFromServer()
             .then(userClass => {
-                console.log("User class:", userClass); // Debug statement
+                console.log("User class:", userClass);
 
                 if (userClass === 'student') {
                     document.getElementById('studentOptions').style.display = 'block';
@@ -31,7 +30,7 @@
                     document.getElementById('studentOptions').style.display = 'none';
                     document.getElementById('teacherOptions').style.display = 'block';
                     document.getElementById('mySubmissionsButton').style.display = 'none';
-                    filterSchoolSubmissions();
+                    fetchUniqueClasses();
                 }
             })
             .catch(error => {
@@ -41,34 +40,52 @@
     });
 
     function openFilterDropdown() {
+        console.log("openFilterDropdown function called");
         var dropdown = document.getElementById("filterDropdown");
         dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
     }
 
-    // Functions for the filter actions
-    function filterByClass() {
-        fetch('/get-class')
+    function fetchUniqueClasses() {
+        fetch('/get-unique-classes')
             .then(response => response.json())
             .then(data => {
-                if (data.class) {
-                    alert("Filtering by class: " + data.class);
-                    // Add your filtering logic here
+                console.log("Unique classes fetched:", data);
+                if (data.classes) {
+                    populateDropdown(data.classes);
                 } else {
-                    alert("No class found in the cookie.");
+                    alert("No classes found.");
                 }
             })
             .catch(error => {
-                console.error("Error fetching class:", error);
-                alert("Failed to fetch class.");
+                console.error("Error fetching unique classes:", error);
+                alert("Failed to fetch unique classes.");
             });
+    }
+
+    function populateDropdown(classes) {
+        console.log("Populating dropdown with classes:", classes);
+        var dropdown = document.getElementById("filterDropdown");
+        dropdown.innerHTML = '';
+
+        classes.forEach(className => {
+            var button = document.createElement("button");
+            button.innerHTML = `Filter by Class: ${className}`;
+            button.onclick = function() { filterByClass(className) };
+            dropdown.appendChild(button);
+        });
+    }
+
+    function filterByClass(className) {
+        console.log(`Filtering by class: ${className}`);
+        alert(`Filtering by class: ${className}`);
     }
 
     function filterStudentSubmissions() {
         fetch('/student/submissions')
             .then(response => response.json())
             .then(data => {
+                console.log("Student submissions fetched:", data);
                 alert("Filtering to show only your submissions...");
-                // Update the UI with the student's submissions
                 console.log(data);
             })
             .catch(error => {
@@ -78,20 +95,20 @@
     }
 
     function filterSchoolSubmissions() {
+        console.log("Filter school submissions function called");
         alert("Filtering to show all school submissions...");
-        // Add your filtering logic here
     }
 
     function refetchData() {
+        console.log("Refetching data function called");
         alert("Refetching data...");
-        // Add your data fetching logic here
     }
 
-    // Function to get user class from server
     function getUserClassFromServer() {
         return fetch('/get-class')
             .then(response => response.json())
             .then(data => {
+                console.log("User class response from server:", data);
                 if (data.class) {
                     return data.class;
                 } else {
@@ -100,6 +117,7 @@
             });
     }
 </script>
+
 
 <style>
     .container {
