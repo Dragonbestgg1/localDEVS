@@ -60,15 +60,14 @@
                         newsItem.innerHTML = `
                             <h3 class="font-bold text-lg">${news.title}</h3>
                             <p>${news.description}</p>
-                            <small>Author: ${news.author}</small><br>
-                            <small>Updated at: ${new Date(news.updated_at).toLocaleString()}</small>
+                            <small>Autors: ${news.author}</small><br>
+                            <small>Publicēts: ${new Date(news.updated_at).toLocaleDateString()}</small>
                         `;
                         newsList.appendChild(newsItem);
                     });
                 })
                 .catch(error => console.error('Error fetching news:', error));
 
-            // Fetch the class value from the server
             fetch('/get-class')
                 .then(response => response.json())
                 .then(data => {

@@ -20,5 +20,6 @@ class Task extends Model
         'input_definition',
         'output_definition',
         'examples',
+        'correct_answer',
     ];
 }

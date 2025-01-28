@@ -91,7 +91,7 @@ class GoogleAuthController extends Controller
 
             foreach ($cookies as $key => $value) {
                 $encryptedValue = Crypt::encryptString($value);
-                Cookie::queue(Cookie::make($key, $encryptedValue, 60, '/', null, false, false));
+                Cookie::queue(Cookie::make($key, $encryptedValue, 180, '/', null, false, false));
             }
             
 
