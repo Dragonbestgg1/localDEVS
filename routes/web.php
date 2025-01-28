@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\JsonExportController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Controllers\StudentController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\NewsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,8 +24,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//news routes
+Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+
 // tasks routes
 Route::view('/tasks', 'pages.tasks')->name('tasks');
+Route::view('/tasks/mysubmissions', 'pages.tasksSub')->name('tasksSub');
+Route::view('/tasks/addTask', 'pages.tasksAdd')->name('tasksAdd');
 
 // competition routes
 Route::view('/competition', 'pages.competition')->name('competition');
@@ -32,10 +40,7 @@ Route::view('/competition', 'pages.competition')->name('competition');
 Route::view('/submitions', 'pages.submitions')->name('submitions');
 Route::get('/student/submissions', [StudentController::class, 'getStudentSubmissions']);
 Route::get('/get-unique-classes', [StudentController::class, 'getUniqueClasses']);
-
-
-// Define other routes for filtering, refetching data, etc.
-
+Route::get('/export-classes', [JsonExportController::class, 'exportClassesToJson']);
 
 // leaderboard routes
 Route::view('/leaderboard', 'pages.leaderboard')->name('leaderboard');
@@ -65,4 +70,25 @@ Route::get('/get-class', function () {
         Log::error('Decryption failed: ' . $e->getMessage());
     }
     return response()->json(['class' => null]);
+});
+
+Route::get('/get-author', function () {
+    try {
+        $name = Cookie::get('name');
+        $surname = Cookie::get('surname');
+        Log::info('Cookie name:', ['name' => $name]);
+        Log::info('Cookie surname:', ['surname' => $surname]);
+
+        if ($name && $surname) {
+            $decryptedName = Crypt::decryptString($name);
+            $decryptedSurname = Crypt::decryptString($surname);
+            Log::info('Decrypted name:', ['name' => $decryptedName]);
+            Log::info('Decrypted surname:', ['surname' => $decryptedSurname]);
+            return response()->json(['name' => $decryptedName, 'surname' => $decryptedSurname]);
+        }
+    } catch (\Exception $e) {
+        // Log the exception
+        Log::error('Decryption failed: ' . $e->getMessage());
+    }
+    return response()->json(['name' => null, 'surname' => null]);
 });

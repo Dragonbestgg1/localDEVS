@@ -31,7 +31,7 @@ class StudentController extends Controller
                         return true;
                     }
                     return false;
-                })->values(); // Convert filtered classes to array
+                })->values();
     
                 return response()->json(['classes' => $filteredClasses]);
             } else {
@@ -66,7 +66,7 @@ class StudentController extends Controller
                     return true;
                 }
                 return false;
-            })->values(); // Convert filtered classes to array
+            })->values();
     
             return response()->json(['classes' => $filteredClasses]);
         } catch (\Exception $e) {
@@ -74,7 +74,6 @@ class StudentController extends Controller
         }
     }
     
-
     private function extractNumericPart($className)
     {
         preg_match('/\d+/', $className, $matches);
