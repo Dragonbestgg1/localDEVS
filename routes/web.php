@@ -44,12 +44,12 @@ Route::post('/submit-task', [TaskController::class, 'submitTask']);
 Route::view('/competition', 'pages.competition.competitions')->name('competition');
 Route::get('/competitions/all', [CompetitionController::class, 'index']);
 
+Route::view('/competition-detail', 'pages.competition.competition-detail')->name('competition-detail');
 
 Route::view('/competition/submitionsComp', 'pages.competition.submitions')->name('submitionsComp');
 
 Route::view('/competition/addCompetition', 'pages.competition.addCompetition')->name('addCompetition');
 Route::post('/competitions', [CompetitionController::class, 'store'])->name('competitions.store');
-
 
 Route::view('/competition/results', 'pages.competition.results')->name('results');
 

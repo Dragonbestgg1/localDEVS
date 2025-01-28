@@ -23,7 +23,7 @@
                 </div>
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('competition')" :active="request()->routeIs('competition') || request()->routeIs('addCompetition') || request()->routeIs('submitions') || request()->routeIs('results')">
+                    <x-nav-link :href="route('competition')" :active="request()->routeIs('competition') || request()->routeIs('addCompetition') || request()->routeIs('submitionsComp') || request()->routeIs('results') || request()->routeIs('competition-detail')">
                         {{ __('Sacensības') }}
                     </x-nav-link>
                 </div>
