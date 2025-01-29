@@ -2,7 +2,15 @@
     <button id="routeButton">Loading...</button>
     
     <h1>Visi Uzdevumi</h1>
-    <ul id="taskList">Loading tasks...</ul>
+    <table id="taskTable">
+        <thead>
+            <tr>
+                <th>Task Name</th>
+                <th>Code</th>
+            </tr>
+        </thead>
+        <tbody id="taskTableBody">Loading tasks...</tbody>
+    </table>
 
     <script>
         async function updateButton() {
@@ -38,23 +46,35 @@
                 const response = await fetch('/tasks/all');
                 const tasks = await response.json();
 
-                const taskList = document.getElementById('taskList');
-                taskList.innerHTML = ''; // Clear the loading text
+                const taskTableBody = document.getElementById('taskTableBody');
+                taskTableBody.innerHTML = ''; // Clear the loading text
 
                 if (tasks.length === 0) {
-                    taskList.textContent = 'No tasks available.';
+                    taskTableBody.textContent = 'No tasks available.';
                 } else {
-                    tasks.forEach(task => {
-                        const li = document.createElement('li');
-                        li.textContent = `${task.name} (Code: ${task.code})`;
-                        taskList.appendChild(li);
+                    tasks.forEach(function(task) {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                            <td><a href="#" onclick='redirectToTask(${JSON.stringify(task)})'>${task.name}</a></td>
+                            <td>${task.code}</td>
+                        `;
+
+                        taskTableBody.appendChild(row);
                     });
                 }
             } catch (error) {
                 console.error('Error loading tasks:', error);
-                const taskList = document.getElementById('taskList');
-                taskList.textContent = 'Error loading tasks!';
+                const taskTableBody = document.getElementById('taskTableBody');
+                taskTableBody.textContent = 'Error loading tasks!';
             }
+        }
+
+        function redirectToTask(task) {
+            // Store the task data in localStorage
+            localStorage.setItem('task', JSON.stringify(task));
+            // Redirect to the task detail page
+            window.location.href = '/task-detail';
         }
 
         updateButton();

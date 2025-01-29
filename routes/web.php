@@ -36,6 +36,7 @@ Route::get('/tasks/all', [TaskController::class, 'index']);
 
 Route::view('/tasks/mysubmissions', 'pages.tasks.tasksSub')->name('tasksSub');
 
+Route::view('/task-detail', 'pages.tasks.task-detail')->name('task-detail');
 
 Route::view('/tasks/addTask', 'pages.tasks.tasksAdd')->name('tasksAdd');
 Route::post('/submit-task', [TaskController::class, 'submitTask']);
