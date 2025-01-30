@@ -27,16 +27,16 @@
                 <p><strong>Difficulty:</strong> ${competition.difficulty}</p>
                 <p><strong>Tasks:</strong><br> 
                 ${competition.tasks.map(task => `
-                        <p><strong>Name:</strong> ${task.name}</p>
-                        <p><strong>Code:</strong> ${task.code}</p>
-                        <p><strong>Completions:</strong> ${task.completions}</p>
-                        <p><strong>Submissions:</strong> ${task.submitions}</p>
-                        <p><strong>Time Limit:</strong> ${task.time_limit}</p>
-                        <p><strong>Memory Limit:</strong> ${task.memory_limit}</p>
-                        <p><strong>Definition:</strong> ${task.definition}</p>
-                        <p><strong>Input Definition:</strong> ${task.input_definition}</p>
-                        <p><strong>Output Definition:</strong> ${task.output_definition}</p>
-                        ${task.examples ? `<p><strong>Examples:</strong> ${task.examples}</p>` : ''}
+                    <p><strong>Name:</strong> ${task.name}</p>
+                    <p><strong>Code:</strong> ${task.code}</p>
+                    <p><strong>Completions:</strong> ${task.completions}</p>
+                    <p><strong>Submissions:</strong> ${task.submitions}</p>
+                    <p><strong>Time Limit:</strong> ${task.time_limit}</p>
+                    <p><strong>Memory Limit:</strong> ${task.memory_limit}</p>
+                    <p><strong>Definition:</strong> ${task.definition}</p>
+                    <p><strong>Input Definition:</strong> ${task.input_definition}</p>
+                    <p><strong>Output Definition:</strong> ${task.output_definition}</p>
+                    ${task.examples ? `<p><strong>Examples:</strong> ${task.examples}</p>` : ''}
                 `).join('<br>')}
                 </p>
             `;
