@@ -1235,7 +1235,7 @@
                                 </a>
                             @else
                                 <a href="/auth/google" class="btn btn-primary">
-                                    {{ __('Register with Google') }}
+                                    {{ __('Login with Google') }}
                                 </a>
                             @endauth
                         </nav>
