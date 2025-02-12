@@ -95,7 +95,7 @@ class GoogleAuthController extends Controller
             }
             
 
-            $redirectUrl = 'http://127.0.0.1:5500/dashboard';
+            $redirectUrl = 'http://127.0.0.1:8000/dashboard';
             // Log::info('Final redirect URL: ' . $redirectUrl);
 
             return redirect()->away($redirectUrl);
