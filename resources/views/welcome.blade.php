@@ -133,7 +133,7 @@
         dot.classList.toggle("bg-[#282560]", i === index);
         dot.classList.toggle("bg-white", i !== index);
       });
-
+      
       setTimeout(() => {
         oldContainer.remove();
         newContainer.id = "hero-container";
