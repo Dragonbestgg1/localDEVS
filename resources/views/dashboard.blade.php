@@ -23,15 +23,22 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form id="newsForm" method="POST" action="/news/store">
                         @csrf
-                        <label for="title">Title:</label>
-                        <input type="text" id="title" name="title" required><br><br>
+                        <label for="title" class="block mb-1">Title:</label>
+                        <input type="text" id="title" name="title" required
+                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <br><br>
 
-                        <label for="description">Description:</label>
-                        <textarea id="description" name="description" required></textarea><br><br>
+                        <label for="description" class="block mt-4 mb-1">Description:</label>
+                        <textarea id="description" name="description" required
+                            class="w-full p-2 bg-gray-100 dark:bg-gray-700 justify-content:centertext-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500"></textarea>
+                        <br><br>
 
                         <input type="hidden" id="author" name="author">
 
-                        <button type="submit">Submit</button>
+                        <button type="submit"
+                            class="mt-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-400">
+                            Submit
+                        </button>
                     </form>
                 </div>
             </div>
@@ -71,13 +78,10 @@
             fetch('/get-class')
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Class cookie value:', data.class);
-
                     if (data.class === 'teacher') {
-                        console.log('Teacher class detected. Displaying the Add button.');
                         // Create and append the Add button with toggle functionality
                         var addButton = document.createElement('button');
-                        addButton.className = 'btn btn-secondary';
+                        addButton.className = 'px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-blue-500';
                         addButton.innerText = 'Add';
                         addButton.onclick = function() {
                             var newsForm = document.getElementById('newsForm');
@@ -90,8 +94,6 @@
                             }
                         };
                         document.getElementById('addButtonPlaceholder').appendChild(addButton);
-                    } else {
-                        console.log('Teacher class not detected.');
                     }
                 })
                 .catch(error => console.error('Error:', error));
@@ -100,10 +102,6 @@
             fetch('/get-author')
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Decrypted name:', data.name);
-                    console.log('Decrypted surname:', data.surname);
-
-                    // Set the author hidden input value
                     document.getElementById('author').value = `${data.name} ${data.surname}`;
                 })
                 .catch(error => console.error('Error:', error));
@@ -126,11 +124,9 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Success:', data);
                         alert('News item added successfully');
                         document.getElementById('newsForm').reset();
                         document.getElementById('newsForm').style.display = 'none';
-                        // Optionally, update the button text back to "Add" if needed:
                         var addButton = document.getElementById('addButtonPlaceholder').querySelector('button');
                         if (addButton) addButton.innerText = 'Add';
                         location.reload();
