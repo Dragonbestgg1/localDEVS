@@ -75,12 +75,19 @@
 
                     if (data.class === 'teacher') {
                         console.log('Teacher class detected. Displaying the Add button.');
-                        // Create and append the Add button
+                        // Create and append the Add button with toggle functionality
                         var addButton = document.createElement('button');
                         addButton.className = 'btn btn-secondary';
                         addButton.innerText = 'Add';
                         addButton.onclick = function() {
-                            document.getElementById('newsForm').style.display = 'block';
+                            var newsForm = document.getElementById('newsForm');
+                            if (newsForm.style.display === 'none' || newsForm.style.display === '') {
+                                newsForm.style.display = 'block';
+                                addButton.innerText = 'Close';
+                            } else {
+                                newsForm.style.display = 'none';
+                                addButton.innerText = 'Add';
+                            }
                         };
                         document.getElementById('addButtonPlaceholder').appendChild(addButton);
                     } else {
@@ -123,6 +130,9 @@
                         alert('News item added successfully');
                         document.getElementById('newsForm').reset();
                         document.getElementById('newsForm').style.display = 'none';
+                        // Optionally, update the button text back to "Add" if needed:
+                        var addButton = document.getElementById('addButtonPlaceholder').querySelector('button');
+                        if (addButton) addButton.innerText = 'Add';
                         location.reload();
                     })
                     .catch(error => {
