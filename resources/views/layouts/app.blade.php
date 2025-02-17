@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,17 +8,13 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.bunny.net">
   <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-  <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-  <!-- Early dark mode setting to avoid flicker -->
   <script>
-    // If theme in localStorage is 'light', remove the 'dark' class from <html>, else add it.
     if (localStorage.getItem('theme') === 'light') {
       document.documentElement.classList.remove('dark');
     } else {
@@ -25,6 +22,7 @@
     }
   </script>
 </head>
+
 <body class="font-sans antialiased 
              bg-gray-100 dark:bg-gray-900 
              text-gray-900 dark:text-gray-200">
@@ -35,7 +33,7 @@
                      ? localStorage.getItem('theme') === 'dark'
                      : true
       }"
-      x-init="
+    x-init="
           // Immediately reflect darkMode on <html>
           document.documentElement.classList.toggle('dark', darkMode);
           // Watch for changes and update localStorage and <html>
@@ -44,14 +42,14 @@
               document.documentElement.classList.toggle('dark', value);
           });
       "
-      class="flex h-screen transition-all">
+    class="flex h-screen transition-all">
 
     <!-- Sidebar (navigation) -->
     @include('layouts.navigation')
 
     <!-- Main Content Area -->
-    <div :class="{ 'ml-64': open, 'ml-2': !open }"
-         class="flex-1 transition-all duration-300 overflow-auto p-6">
+    <div :class="{ 'md:ml-64': open, 'md:ml-2': !open }"
+      class="flex-1 transition-all duration-300 overflow-auto p-6">
 
       <!-- Framed content box -->
       <div class="border border-gray-300 dark:border-gray-700 
@@ -62,14 +60,14 @@
 
         <!-- Page Heading -->
         @isset($header)
-          <header class="mb-4 p-4 
+        <header class="mb-4 p-4 
                          bg-gray-200 dark:bg-gray-900 
                          text-gray-900 dark:text-gray-100 
                          shadow rounded-lg">
-            <div class="max-w-7xl mx-auto">
-              {{ $header }}
-            </div>
-          </header>
+          <div class="max-w-7xl mx-auto">
+            {{ $header }}
+          </div>
+        </header>
         @endisset
 
         <!-- Page Content -->
@@ -80,4 +78,5 @@
     </div>
   </div>
 </body>
+
 </html>
