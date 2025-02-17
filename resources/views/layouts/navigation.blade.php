@@ -1,126 +1,141 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                </div>
+<nav
+  x-bind:class="[
+    open ? 'w-64' : 'w-2',
+    darkMode
+      ? 'bg-gray-900 text-gray-200'
+      : 'bg-gray-1000 text-gray-900'
+  ]"
+  class="fixed left-0 top-0 h-full flex flex-col transition-all duration-300 ease-in-out overflow-visible">
+  <button
+  @click="open = !open"
+  class="absolute top-1/4 transform transition-all duration-300 p-3 rounded-full shadow-md focus:outline-none
+         left-[calc(100%-1rem)] md:right-[-1.5rem] md:translate-x-1/2"
+  x-bind:class="darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-900'"
+>
+  <template x-if="open">
+    <x-bx-horizontal-left class="w-5 h-5" />
+  </template>
+  <template x-if="!open">
+    <x-bx-horizontal-right class="w-5 h-5" />
+  </template>
+</button>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Jaunumi') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('tasks')" :active="request()->routeIs('tasks') || request()->routeIs('tasksSub') || request()->routeIs('tasksAdd')">
-                        {{ __('Uzdevumi') }}
-                    </x-nav-link>
-                </div>
-                
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('competition')" :active="request()->routeIs('competition') || request()->routeIs('addCompetition') || request()->routeIs('submitionsComp') || request()->routeIs('results') || request()->routeIs('competition-detail')">
-                        {{ __('Sacensības') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('submitions')" :active="request()->routeIs('submitions')">
-                        {{ __('Iesniegumi') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('leaderboard')" :active="request()->routeIs('leaderboard')">
-                        {{ __('Līderu saraksts') }}
-                    </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('code_space')" :active="request()->routeIs('code_space')">
-                        {{ __('Trenēties') }}
-                    </x-nav-link>
-                </div>
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }} {{ Auth::user()->surname }}</div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+  <div x-show="open">
+    <div
+      class="flex items-center justify-between h-16 px-4 border-b"
+      x-bind:class="darkMode ? 'border-gray-700' : 'border-gray-300'">
+      <span
+        class="text-lg font-semibold"
+        x-bind:class="darkMode ? 'text-gray-200' : 'text-gray-900'">
+        Izvēlne
+      </span>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+    <!-- User Dropdown -->
+    <div
+      class="p-2 border-b relative"
+      x-data="{ userDropdownOpen: false }"
+      x-bind:class="darkMode ? 'border-gray-700' : 'border-gray-300'">
+      <button
+        @click="userDropdownOpen = !userDropdownOpen"
+        class="flex items-center w-full focus:outline-none">
+        <div
+          class="ml-3 text-base font-medium"
+          x-bind:class="darkMode ? 'text-gray-200' : 'text-gray-900'">
+          {{ Auth::user()->name }} {{ Auth::user()->surname }}
         </div>
+        <svg
+          class="fill-current h-4 w-4 ml-auto transform transition-transform duration-200"
+          :class="{ 'rotate-180': userDropdownOpen }"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
 
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
+      <!-- Dropdown Content -->
+      <div
+        x-show="userDropdownOpen"
+        @click.away="userDropdownOpen = false"
+        class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-10 transition-all"
+        x-bind:class="darkMode ? 'bg-gray-800' : 'bg-gray-200'">
+        <x-responsive-nav-link
+          :href="route('profile.edit')"
+          class="block px-4 py-2"
+          x-bind:class="darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-300'">
+          Profile
+        </x-responsive-nav-link>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <x-responsive-nav-link
+            :href="route('logout')"
+            onclick="event.preventDefault(); this.closest('form').submit();"
+            class="block px-4 py-2"
+            x-bind:class="darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-300'">
+            Log Out
+          </x-responsive-nav-link>
+        </form>
+      </div>
     </div>
+
+    <!-- Navigation Links -->
+    <div class="mt-5 flex-1 px-2 space-y-2 flex flex-col overflow-y-auto">
+      <x-nav-link
+        :href="route('dashboard')"
+        :active="request()->routeIs('dashboard')"
+        class="block py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        {{ __('Jaunumi') }}
+      </x-nav-link>
+      <x-nav-link
+        :href="route('tasks')"
+        :active="request()->routeIs('tasks')"
+        class="block py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        {{ __('Uzdevumi') }}
+      </x-nav-link>
+      <x-nav-link
+        :href="route('competition')"
+        :active="request()->routeIs('competition')"
+        class="block py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        {{ __('Sacensības') }}
+      </x-nav-link>
+      <x-nav-link
+        :href="route('submitions')"
+        :active="request()->routeIs('submitions')"
+        class="block py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        {{ __('Iesniegumi') }}
+      </x-nav-link>
+      <x-nav-link
+        :href="route('leaderboard')"
+        :active="request()->routeIs('leaderboard')"
+        class="block py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        {{ __('Līderu saraksts') }}
+      </x-nav-link>
+      <x-nav-link
+        :href="route('code_space')"
+        :active="request()->routeIs('code_space')"
+        class="block py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        {{ __('Trenēties') }}
+      </x-nav-link>
+    </div>
+
+    <div class="p-2 flex justify-center">
+      <span @click="darkMode = !darkMode" class="cursor-pointer">
+        <template x-if="!darkMode">
+          <x-bi-sun class="w-6 h-6 text-gray-500" />
+        </template>
+        <template x-if="darkMode">
+          <x-bi-moon-fill class="w-6 h-6 text-white" />
+        </template>
+      </span>
+    </div>
+  </div>
 </nav>
