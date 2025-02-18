@@ -1,5 +1,5 @@
 <nav
-  x-bind:class="[open ? 'w-64' : 'w-2', darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-1000 text-gray-900']"
+  x-bind:class="[open ? 'w-64' : 'w-2', darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-900']"
   class="z-50 fixed left-0 top-0 h-full flex flex-col transition-all duration-300 ease-in-out overflow-visible">
   <!-- Toggle Button -->
   <button
