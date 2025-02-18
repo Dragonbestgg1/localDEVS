@@ -1,6 +1,6 @@
 <nav
   x-bind:class="[open ? 'w-64' : 'w-2', darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-1000 text-gray-900']"
-  class="fixed left-0 top-0 h-full flex flex-col transition-all duration-300 ease-in-out overflow-visible">
+  class="z-50 fixed left-0 top-0 h-full flex flex-col transition-all duration-300 ease-in-out overflow-visible">
   <!-- Toggle Button -->
   <button
     @click="open = !open"
@@ -48,7 +48,7 @@
       <div
         x-show="userDropdownOpen"
         @click.away="userDropdownOpen = false"
-        class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-10 transition-all"
+        class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-60 transition-all"
         x-bind:class="darkMode ? 'bg-gray-800' : 'bg-gray-200'">
         <x-responsive-nav-link
           :href="route('profile.edit')"
