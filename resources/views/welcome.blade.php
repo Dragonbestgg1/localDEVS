@@ -21,14 +21,17 @@
         transform: translate(calc(100vw - 50%), -50%);
         opacity: 0;
       }
+
       20% {
         transform: translate(-50%, -50%);
         opacity: 1;
       }
+
       80% {
         transform: translate(-50%, -50%);
         opacity: 1;
       }
+
       100% {
         transform: translate(calc(-100vw - 50%), -50%);
         opacity: 0;
@@ -39,10 +42,10 @@
       animation: slideHero 8s linear;
     }
 
-    /* 4K screens (3840px and above): scale images 200% */
+    /* 4K screen adjustments: scale every image 200% */
     @media (min-width: 3840px) {
       img {
-        transform: scale(2) !important;
+        transform: scale(2);
         transform-origin: top left;
       }
     }
@@ -92,7 +95,7 @@
       </div>
     </div>
 
-    <!-- Wires image -->
+    <!-- Wires image: smaller on mobile (w-32) and larger on md screens (w-64) -->
     <div class="absolute bottom-10 right-0 z-5">
       <img src="{{ asset('images/wires.png') }}" alt="Wires Test"
         class="w-32 md:w-64 h-auto" />
