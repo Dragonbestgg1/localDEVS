@@ -1,16 +1,21 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="leading-tight">Task Detail</h2>
+    <div class="flex items-center justify-between">
+      <h2 class="font-semibold text-xl sm:text-lg text-gray-800 dark:text-gray-200 leading-tight">
+        Task Detail
+      </h2>
+      <button id="backButton" class="text-sm px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded shadow hover:bg-gray-300 dark:hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500">
+        Atpakaļ
+      </button>
+    </div>
   </x-slot>
 
-  <div class="relative">
+  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
     <!-- Task Detail Card -->
-    <div id="taskDetail" class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
-        <p class="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
-          Loading task data...
-        </p>
-      </div>
+    <div id="taskDetail" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+      <p class="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
+        Loading task data...
+      </p>
     </div>
   </div>
 
@@ -24,7 +29,7 @@
 
     function loadTaskData() {
       const taskData = localStorage.getItem('task');
-      const taskCard = document.querySelector('#taskDetail > div');
+      const taskCard = document.querySelector('#taskDetail');
 
       if (taskData) {
         const task = JSON.parse(taskData);
@@ -88,6 +93,11 @@
         taskCard.textContent = 'No task data found.';
       }
     }
+
+    // Back button: Navigate back to the tasks list when clicked
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = '/tasks'; // Adjust URL if needed
+    });
 
     loadTaskData();
   </script>
