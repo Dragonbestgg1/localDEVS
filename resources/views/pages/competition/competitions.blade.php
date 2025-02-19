@@ -5,8 +5,41 @@
     </h2>
   </x-slot>
 
+  <style>
+  /* Base scrollbar styling (for non-dark mode) */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+
+  /* Force dark scrollbar styling when dark mode is active.
+     Even though dark mode elsewhere gives white backgrounds (via dark:bg-white),
+     we want the scrollbar elements to have dark colors. */
+  html.dark ::-webkit-scrollbar-track {
+    background: #2d3748 !important;
+  }
+  html.dark ::-webkit-scrollbar-thumb {
+    background-color: #4a5568 !important;
+  }
+
+  /* Firefox scrollbar styling */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  html.dark {
+    scrollbar-color: #4a5568 #2d3748 !important;
+  }
+</style>
+
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-2 sm:p-6">
+    <div class="overflow-hidden shadow-sm p-2 sm:p-6">
       <!-- Action Button Container -->
       <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
         <button
