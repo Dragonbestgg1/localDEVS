@@ -1,36 +1,94 @@
 <x-app-layout>
-    <h1>Task Detail</h1>
-    <div id="taskDetail">Loading task data...</div>
+  <x-slot name="header">
+    <h2 class="leading-tight">Task Detail</h2>
+  </x-slot>
 
-    <script>
-        function formatTime(seconds) {
-            const hrs = Math.floor(seconds / 3600);
-            const mins = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            return `${hrs}h ${mins}m ${secs}s`;
-        }
+  <div class="relative">
+    <!-- Task Detail Card -->
+    <div id="taskDetail" class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+        <p class="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
+          Loading task data...
+        </p>
+      </div>
+    </div>
+  </div>
 
-        function loadTaskData() {
-            const taskData = localStorage.getItem('task');
-            if (taskData) {
-                const task = JSON.parse(taskData);
-                const taskDetailDiv = document.getElementById('taskDetail');
+  <script>
+    function formatTime(seconds) {
+      const hrs = Math.floor(seconds / 3600);
+      const mins = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      return `${hrs}h ${mins}m ${secs}s`;
+    }
 
-                taskDetailDiv.innerHTML = `
-                    <p><strong>Name:</strong> ${task.name}</p>
-                    <p><strong>Code:</strong> ${task.code}</p>
-                    <p><strong>Time limit:</strong> ${formatTime(task.time_limit)}</p>
-                    <p><strong>Memory Limit</strong> ${task.memory_limit}</p>
-                    <p><strong>Description:</strong> ${task.definition}</p>
-                    <p><strong>Input</strong> ${task.input_definition}</p>
-                    <p><strong>Output</strong> ${task.output_definition}</p>
-                    ${task.examples ? `<p><strong>Examples:</strong> ${task.examples}</p>` : ''}
-                `;
-            } else {
-                document.getElementById('taskDetail').textContent = 'No task data found.';
+    function loadTaskData() {
+      const taskData = localStorage.getItem('task');
+      const taskCard = document.querySelector('#taskDetail > div');
+
+      if (taskData) {
+        const task = JSON.parse(taskData);
+
+        taskCard.innerHTML = `
+          <!-- Short Fields: arranged in a two-column grid -->
+          <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+            <!-- Name -->
+            <div>
+              <p class="font-medium text-gray-600 dark:text-gray-400">Name:</p>
+              <p class="text-gray-900 dark:text-gray-100">${task.name}</p>
+            </div>
+            <!-- Code -->
+            <div>
+              <p class="font-medium text-gray-600 dark:text-gray-400">Code:</p>
+              <p class="text-gray-900 dark:text-gray-100">${task.code}</p>
+            </div>
+            <!-- Time Limit -->
+            <div>
+              <p class="font-medium text-gray-600 dark:text-gray-400">Time limit:</p>
+              <p class="text-gray-900 dark:text-gray-100">${formatTime(task.time_limit)}</p>
+            </div>
+            <!-- Memory Limit -->
+            <div>
+              <p class="font-medium text-gray-600 dark:text-gray-400">Memory Limit:</p>
+              <p class="text-gray-900 dark:text-gray-100">${task.memory_limit}</p>
+            </div>
+            <!-- Input -->
+            <div class="flex items-center">
+              <p class="font-medium text-gray-600 dark:text-gray-400 mr-2">Input:</p>
+              <p class="text-gray-900 dark:text-gray-100">${task.input_definition}</p>
+            </div>
+            <!-- Output -->
+            <div class="flex items-center">
+              <p class="font-medium text-gray-600 dark:text-gray-400 mr-2">Output:</p>
+              <p class="text-gray-900 dark:text-gray-100">${task.output_definition}</p>
+            </div>
+          </div>
+
+          <!-- Full-width Fields: placed below the grid -->
+          <div class="mt-6 space-y-4">
+            <!-- Description -->
+            <div>
+              <p class="font-medium text-gray-600 dark:text-gray-400">Description:</p>
+              <p class="text-gray-900 dark:text-gray-100">${task.definition}</p>
+            </div>
+            <!-- Examples (if available) -->
+            ${
+              task.examples
+                ? `
+                  <div>
+                    <p class="font-medium text-gray-600 dark:text-gray-400">Examples:</p>
+                    <p class="text-gray-900 dark:text-gray-100">${task.examples}</p>
+                  </div>
+                `
+                : ''
             }
-        }
+          </div>
+        `;
+      } else {
+        taskCard.textContent = 'No task data found.';
+      }
+    }
 
-        loadTaskData();
-    </script>
+    loadTaskData();
+  </script>
 </x-app-layout>

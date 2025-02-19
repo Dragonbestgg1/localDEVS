@@ -36,7 +36,7 @@ class TaskController extends Controller
         $task->input_definition = $validatedData['input_definition'];
         $task->output_definition = $validatedData['output_definition'];
         $task->examples = $validatedData['examples']; // This field is now nullable
-        $task->correct_answer = $validatedData['correct_answer'];
+        $task->correct_answer = json_encode($validatedData['correct_answer']);
 
         // Log the task object before saving
         Log::info('Task Object:', $task->toArray());
