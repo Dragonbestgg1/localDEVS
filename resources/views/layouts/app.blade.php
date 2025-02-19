@@ -60,11 +60,8 @@
 
         <!-- Page Heading -->
         @isset($header)
-        <header class="mb-4 p-4 
-                         bg-gray-200 dark:bg-gray-900 
-                         text-gray-900 dark:text-gray-100 
-                         shadow rounded-lg">
-          <div class="max-w-7xl mx-auto">
+        <header class="mb-4 p-4 text-gray-900 dark:text-gray-100 ">
+          <div class="max-w-7xl mx-auto font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ $header }}
           </div>
         </header>

@@ -1,39 +1,26 @@
 <nav
-  x-bind:class="[
-    open ? 'w-64' : 'w-2',
-    darkMode
-      ? 'bg-gray-900 text-gray-200'
-      : 'bg-gray-1000 text-gray-900'
-  ]"
-  class="fixed left-0 top-0 h-full flex flex-col transition-all duration-300 ease-in-out overflow-visible">
+  x-bind:class="[open ? 'w-64' : 'w-2', darkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-900']"
+  class="z-50 fixed left-0 top-0 h-full flex flex-col transition-all duration-300 ease-in-out overflow-visible">
+  <!-- Toggle Button -->
   <button
-  @click="open = !open"
-  class="absolute top-1/4 transform transition-all duration-300 p-3 rounded-full shadow-md focus:outline-none
-         left-[calc(100%-1rem)] md:right-[-1.5rem] md:translate-x-1/2"
-  x-bind:class="darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-900'"
->
-  <template x-if="open">
-    <x-bx-horizontal-left class="w-5 h-5" />
-  </template>
-  <template x-if="!open">
-    <x-bx-horizontal-right class="w-5 h-5" />
-  </template>
-</button>
+    @click="open = !open"
+    class="absolute top-1/4 transform transition-all duration-300 p-2 rounded-full shadow-md focus:outline-none
+           left-[calc(100%-1rem)] md:right-[-1.5rem] md:translate-x-1/2"
+    x-bind:class="darkMode ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-900'">
+    <template x-if="open">
+      <x-bx-horizontal-left class="w-6 h-6" />
+    </template>
+    <template x-if="!open">
+      <x-bx-horizontal-right class="w-6 h-6" />
+    </template>
+  </button>
 
-  <div x-show="open">
-    <div
-      class="flex items-center justify-between h-16 px-4 border-b"
-      x-bind:class="darkMode ? 'border-gray-700' : 'border-gray-300'">
-      <span
-        class="text-lg font-semibold"
-        x-bind:class="darkMode ? 'text-gray-200' : 'text-gray-900'">
-        Izvēlne
-      </span>
-    </div>
+  <!-- Sidebar Content -->
+  <div x-show="open" class="flex flex-col h-full">
 
-    <!-- User Dropdown -->
+    <!-- User Dropdown (spaced from top with pt-24) -->
     <div
-      class="p-2 border-b relative"
+      class="pl-2 pt-24 relative"
       x-data="{ userDropdownOpen: false }"
       x-bind:class="darkMode ? 'border-gray-700' : 'border-gray-300'">
       <button
@@ -51,7 +38,8 @@
           viewBox="0 0 20 20">
           <path
             fill-rule="evenodd"
-            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 
+               011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
             clip-rule="evenodd" />
         </svg>
       </button>
@@ -60,7 +48,7 @@
       <div
         x-show="userDropdownOpen"
         @click.away="userDropdownOpen = false"
-        class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-10 transition-all"
+        class="absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 z-60 transition-all"
         x-bind:class="darkMode ? 'bg-gray-800' : 'bg-gray-200'">
         <x-responsive-nav-link
           :href="route('profile.edit')"
@@ -81,61 +69,79 @@
       </div>
     </div>
 
+    <!-- "Navigācijas pogas" Title -->
+    <div class="px-3 mt-8 pb-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-700'">
+      Navigācijas pogas
+    </div>
+
     <!-- Navigation Links -->
-    <div class="mt-5 flex-1 px-2 space-y-2 flex flex-col overflow-y-auto">
+    <div class="mt-2 flex-1 px-2 space-y-2 flex flex-col overflow-y-auto">
       <x-nav-link
         :href="route('dashboard')"
         :active="request()->routeIs('dashboard')"
-        class="block py-2 px-3 rounded-md transition"
-        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        class="flex items-center py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
+        <x-ri-news-fill class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Jaunumi') }}
       </x-nav-link>
+
       <x-nav-link
         :href="route('tasks')"
         :active="request()->routeIs('tasks')"
-        class="block py-2 px-3 rounded-md transition"
-        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        class="flex items-center py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
+        <x-fas-tasks class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Uzdevumi') }}
       </x-nav-link>
+
       <x-nav-link
         :href="route('competition')"
         :active="request()->routeIs('competition')"
-        class="block py-2 px-3 rounded-md transition"
-        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        class="flex items-center py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
+        <x-maki-racetrack class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Sacensības') }}
       </x-nav-link>
+
       <x-nav-link
         :href="route('submitions')"
         :active="request()->routeIs('submitions')"
-        class="block py-2 px-3 rounded-md transition"
-        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        class="flex items-center py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
+        <x-ionicon-mail class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Iesniegumi') }}
       </x-nav-link>
+
       <x-nav-link
         :href="route('leaderboard')"
         :active="request()->routeIs('leaderboard')"
-        class="block py-2 px-3 rounded-md transition"
-        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        class="flex items-center py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
+        <x-iconoir-leaderboard-star class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Līderu saraksts') }}
       </x-nav-link>
+
       <x-nav-link
         :href="route('code_space')"
         :active="request()->routeIs('code_space')"
-        class="block py-2 px-3 rounded-md transition"
-        x-bind:class="darkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-300'">
+        class="flex items-center py-2 px-3 rounded-md transition"
+        x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
+        <x-fas-brain class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Trenēties') }}
       </x-nav-link>
     </div>
 
-    <div class="p-2 flex justify-center">
+    <!-- Dark Mode Toggle at the Bottom -->
+    <div class="p-6 pb-12 mt-auto">
       <span @click="darkMode = !darkMode" class="cursor-pointer">
         <template x-if="!darkMode">
-          <x-bi-sun class="w-6 h-6 text-gray-500" />
+          <x-bi-sun class="w-5 h-5 text-gray-500" />
         </template>
         <template x-if="darkMode">
-          <x-bi-moon-fill class="w-6 h-6 text-white" />
+          <x-bi-moon-fill class="w-5 h-5 text-white" />
         </template>
       </span>
     </div>
+
   </div>
 </nav>
