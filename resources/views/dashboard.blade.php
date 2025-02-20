@@ -7,7 +7,10 @@
 
     <div class="relative">
         <!-- Notification -->
-        <div id="loginNotification" class="p-4 bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-white rounded fixed top-4 right-4 shadow-lg transition-opacity duration-1000 z-10">
+        <div id="loginNotification" 
+             class="p-4 bg-gray-200 dark:bg-gray-500 text-gray-800 dark:text-white 
+                    rounded fixed top-4 right-4 shadow-lg 
+                    transition-opacity duration-1000 z-10">
             {{ __("You're logged in!") }}
         </div>
         
@@ -22,29 +25,45 @@
         <div id="news-pagination-controls" class="mt-4 flex justify-center items-center space-x-4"></div>
 
         <!-- Floating Form (hidden by default) -->
-        <div id="floatingForm" class="fixed bottom-24 right-4 sm:right-12 hidden w-full sm:max-w-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg z-10">
-            <button id="formCloseButton" class="absolute top-2 right-2 text-gray-700 dark:text-gray-300 text-2xl focus:outline-none">&times;</button>
+        <div id="floatingForm" 
+             class="fixed bottom-24 right-4 border-2 border-gray-200 dark:border-gray-500 
+                    sm:right-12 hidden w-full sm:max-w-md bg-white dark:bg-gray-800 
+                    p-6 rounded-lg shadow-lg z-10">
             <form id="newsForm" method="POST" action="/news/store">
                 @csrf
                 <label for="title" class="block mb-1">Title:</label>
                 <input type="text" id="title" name="title" required
-                    class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 
+                           border border-gray-300 dark:border-gray-600 
+                           rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
                 <br><br>
+
                 <label for="description" class="block mt-4 mb-1">Description:</label>
                 <textarea id="description" name="description" required
-                    class="w-full resize-none p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 h-32"></textarea>
+                    class="w-full resize-none p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 
+                           border border-gray-300 dark:border-gray-600 
+                           rounded focus:outline-none focus:ring-2 focus:ring-gray-500 h-32"></textarea>
                 <br><br>
+
                 <input type="hidden" id="author" name="author">
+
                 <button type="submit"
-                    class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+                    class="px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 
+                           rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
                     Submit
                 </button>
             </form>
         </div>
 
         <!-- Floating Action Button (FAB) -->
-        <button id="fabAddButton" class="fixed bottom-7 right-4 sm:right-12 p-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded-full shadow-lg flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-gray-500 z-10">
-            <span class="text-base">Pievienot Jaunumus</span>
+        <button id="fabAddButton" 
+                class="fixed bottom-8 right-4 sm:right-12 
+                       w-10 h-10 rounded-full 
+                       bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 
+                       shadow-lg flex items-center justify-center 
+                       focus:outline-none focus:ring-2 focus:ring-gray-400 z-10">
+            <!-- Default icon: plus sign -->
+            <span class="text-2xl">+</span>
         </button>
     </div>
 
@@ -66,35 +85,44 @@
                 }, 5000);
             }
 
-            // Toggle floating form display when FAB is clicked
+            // Grab our floating form and FAB elements
             const fab = document.getElementById('fabAddButton');
             const floatingForm = document.getElementById('floatingForm');
             const formCloseButton = document.getElementById('formCloseButton');
 
-            // Enable FAB only for teachers
+            // Enable the FAB only for teachers
             fetch('/get-class')
                 .then(response => response.json())
                 .then(data => {
                     if (data.class === 'teacher') {
-                        fab.style.display = 'flex';
-                        fab.addEventListener('click', function() {
-                            if (floatingForm.classList.contains('hidden')) {
-                                floatingForm.classList.remove('hidden');
-                                fab.innerHTML = '<span class="text-base">&times;</span>';
-                            } else {
-                                floatingForm.classList.add('hidden');
-                                fab.innerHTML = '<span class="text-base">Pievienot Jaunumus</span>';
-                            }
-                        });
-                        formCloseButton.addEventListener('click', function() {
-                            floatingForm.classList.add('hidden');
-                            fab.innerHTML = '<span class="text-base">Pievienot Jaunumus</span>';
-                        });
+                        fab.style.display = 'flex'; // Show the FAB
                     } else {
-                        fab.style.display = 'none';
+                        fab.style.display = 'none'; // Hide for non-teachers
                     }
                 })
                 .catch(error => console.error('Error:', error));
+
+            // Toggle the form + FAB icon on click
+            fab.addEventListener('click', function() {
+                if (floatingForm.classList.contains('hidden')) {
+                    // Show the form
+                    floatingForm.classList.remove('hidden');
+                    // Change FAB icon to "×"
+                    fab.innerHTML = '<span class="text-2xl">&times;</span>';
+                } else {
+                    // Hide the form
+                    floatingForm.classList.add('hidden');
+                    // Change FAB icon back to "+"
+                    fab.innerHTML = '<span class="text-2xl">+</span>';
+                }
+            });
+
+            // Close button inside the form
+            formCloseButton.addEventListener('click', function() {
+                floatingForm.classList.add('hidden');
+                // Change FAB icon back to "+"
+                fab.innerHTML = '<span class="text-2xl">+</span>';
+            });
 
             // Fetch decrypted author name and surname from the server
             fetch('/get-author')
@@ -108,26 +136,27 @@
             document.getElementById('newsForm').addEventListener('submit', function(event) {
                 event.preventDefault();
                 const formData = new FormData(this);
+
                 fetch('/news/store', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
-                            'Accept': 'application/json'
-                        },
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        alert('News item added successfully');
-                        document.getElementById('newsForm').reset();
-                        floatingForm.classList.add('hidden');
-                        fab.innerHTML = '<span class="text-base">Pievienot Jaunumus</span>';
-                        location.reload();
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Failed to add news item');
-                    });
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('News item added successfully');
+                    document.getElementById('newsForm').reset();
+                    floatingForm.classList.add('hidden');
+                    fab.innerHTML = '<span class="text-2xl">+</span>';
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to add news item');
+                });
             });
 
             // Fetch all news items on page load
@@ -140,6 +169,7 @@
                 })
                 .catch(error => console.error('Error fetching news:', error));
 
+            // Example fetch for /export-classes
             fetch('/export-classes')
                 .then(response => response.json())
                 .then(data => {
@@ -186,7 +216,7 @@
             const prevButton = document.createElement('button');
             prevButton.textContent = '←';
             prevButton.className = 'px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded';
-            prevButton.disabled = newsCurrentPage === 1;
+            prevButton.disabled = (newsCurrentPage === 1);
             prevButton.addEventListener('click', () => {
                 if (newsCurrentPage > 1) {
                     newsCurrentPage--;
@@ -204,7 +234,7 @@
             const nextButton = document.createElement('button');
             nextButton.textContent = '→';
             nextButton.className = 'px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded';
-            nextButton.disabled = newsCurrentPage === totalPages;
+            nextButton.disabled = (newsCurrentPage === totalPages);
             nextButton.addEventListener('click', () => {
                 if (newsCurrentPage < totalPages) {
                     newsCurrentPage++;

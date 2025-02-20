@@ -4,9 +4,9 @@
       All Competitions
     </h2>
   </x-slot>
-  
+
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <div class="overflow-hidden shadow-sm p-2 sm:p-6">
+    <div class="overflow-hidden p-2 sm:p-6">
       <!-- Action Button Container -->
       <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
         <button
@@ -15,7 +15,7 @@
           Loading...
         </button>
       </div>
-
+      
       <!-- Competitions Table -->
       <div class="overflow-x-auto">
         <table class="w-full min-w-full border-separate border-spacing-y-2">
@@ -77,7 +77,7 @@
     let currentPage = 1;
     const itemsPerPage = 10;
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       updateButton();
       loadCompetitions();
     });
@@ -139,7 +139,7 @@
           if (tasksArray.length > 2) {
             tasksDisplay += '...';
           }
-              
+
           // Truncate description and information to 10 characters with ellipsis
           const truncatedDescription = truncate(competition.description, 10);
           const truncatedInformation = truncate(competition.information, 10);
