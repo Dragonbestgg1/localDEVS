@@ -24,6 +24,14 @@
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // Function to format seconds into hours, minutes, and seconds
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${hrs}h ${mins}m ${secs}s`;
+        }
+
         function loadCompetitionDetails() {
             // Retrieve the competition data from localStorage
             const competition = JSON.parse(localStorage.getItem('competition'));
@@ -35,57 +43,54 @@
 
             // Build the HTML for competition fields
             const detailsHTML = `
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div><strong>Name:</strong> ${competition.name}</div>
-          <div><strong>Time:</strong> ${competition.time}</div>
-          <div><strong>From:</strong> ${competition.from}</div>
-          <div><strong>Till:</strong> ${competition.till}</div>
-          <div class="sm:col-span-2"><strong>Description:</strong> ${competition.description}</div>
-          <div class="sm:col-span-2"><strong>Information:</strong> ${competition.information}</div>
-          <div><strong>Difficulty:</strong> ${competition.difficulty}</div>
-        </div>
-      `;
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div><strong>Name:</strong> ${competition.name}</div>
+                    <div><strong>Time:</strong> ${competition.time}</div>
+                    <div><strong>From:</strong> ${competition.from}</div>
+                    <div><strong>Till:</strong> ${competition.till}</div>
+                    <div class="sm:col-span-2"><strong>Description:</strong> ${competition.description}</div>
+                    <div class="sm:col-span-2"><strong>Information:</strong> ${competition.information}</div>
+                    <div><strong>Difficulty:</strong> ${competition.difficulty}</div>
+                </div>
+            `;
 
             // Build the HTML for tasks
             let tasksHTML = '';
             if (competition.tasks && competition.tasks.length > 0) {
                 tasksHTML = `
-          <div class="space-y-4">
-            ${competition.tasks.map(task => `
-              <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded shadow">
-                <p><strong>Name:</strong> ${task.name}</p>
-                <p><strong>Code:</strong> ${task.code}</p>
-                <p><strong>Completions:</strong> ${task.completions}</p>
-                <p><strong>Submissions:</strong> ${task.submitions}</p>
-                <p><strong>Time Limit:</strong> ${task.time_limit}</p>
-                <p><strong>Memory Limit:</strong> ${task.memory_limit}</p>
-                <p><strong>Definition:</strong> ${task.definition}</p>
-                <p><strong>Input Definition:</strong> ${task.input_definition}</p>
-                <p><strong>Output Definition:</strong> ${task.output_definition}</p>
-                ${task.examples ? `<p><strong>Examples:</strong> ${task.examples}</p>` : ''}
-              </div>
-            `).join('')}
-          </div>
-        `;
+                    <div class="space-y-4">
+                        ${competition.tasks.map(task => `
+                            <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded shadow">
+                                <p><strong>Name:</strong> ${task.name}</p>
+                                <p><strong>Code:</strong> ${task.code}</p>
+                                <p><strong>Completions:</strong> ${task.completions}</p>
+                                <p><strong>Submissions:</strong> ${task.submitions}</p>
+                                <p><strong>Time Limit:</strong> ${formatTime(task.time_limit)}</p>
+                                <p><strong>Memory Limit:</strong> ${task.memory_limit}</p>
+                                <p><strong>Definition:</strong> ${task.definition}</p>
+                                <p><strong>Input Definition:</strong> ${task.input_definition}</p>
+                                <p><strong>Output Definition:</strong> ${task.output_definition}</p>
+                                ${task.examples ? `<p><strong>Examples:</strong> ${task.examples}</p>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
             } else {
                 tasksHTML = `<p>No tasks available for this competition.</p>`;
             }
 
             // Combine competition details and tasks
-            const competitionDetails = document.getElementById('competition-details');
-            competitionDetails.innerHTML = `
-        <div class="space-y-6">
-          <!-- Competition Info -->
-          <div class="space-y-2">
-            ${detailsHTML}
-          </div>
-          <!-- Tasks -->
-          <div class="space-y-2">
-            <h3 class="text-lg font-semibold">Tasks</h3>
-            ${tasksHTML}
-          </div>
-        </div>
-      `;
+            document.getElementById('competition-details').innerHTML = `
+                <div class="space-y-6">
+                    <div class="space-y-2">
+                        ${detailsHTML}
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-semibold">Tasks</h3>
+                        ${tasksHTML}
+                    </div>
+                </div>
+            `;
         }
 
         loadCompetitionDetails();

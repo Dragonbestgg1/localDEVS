@@ -13,10 +13,13 @@
         
         <!-- News List -->
         <div id="newsList" class="max-w-7xl">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                <!-- News items will be appended here -->
+            <div id="newsContainer" class="p-6 text-gray-900 dark:text-gray-100">
+                <!-- News items will be rendered here -->
             </div>
         </div>
+
+        <!-- News Pagination Controls -->
+        <div id="news-pagination-controls" class="mt-4 flex justify-center items-center space-x-4"></div>
 
         <!-- Floating Form (hidden by default) -->
         <div id="floatingForm" class="fixed bottom-24 right-4 sm:right-12 hidden w-full sm:max-w-md bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg z-10">
@@ -46,6 +49,11 @@
     </div>
 
     <script>
+        // Global variables for news pagination
+        let newsData = [];
+        let newsCurrentPage = 1;
+        const newsItemsPerPage = 10;
+
         document.addEventListener('DOMContentLoaded', function() {
             // Hide login notification after 5 seconds with fade-out effect
             const loginNotification = document.getElementById('loginNotification');
@@ -96,7 +104,7 @@
                 })
                 .catch(error => console.error('Error:', error));
 
-            // AJAX form submission
+            // AJAX form submission for news
             document.getElementById('newsForm').addEventListener('submit', function(event) {
                 event.preventDefault();
                 const formData = new FormData(this);
@@ -126,18 +134,9 @@
             fetch('/news')
                 .then(response => response.json())
                 .then(data => {
-                    const newsList = document.getElementById('newsList').querySelector('.p-6');
-                    data.forEach(news => {
-                        const newsItem = document.createElement('div');
-                        newsItem.className = 'bg-gray-100 dark:bg-gray-900 p-4 my-4 rounded shadow-md';
-                        newsItem.innerHTML = `
-                            <h3 class="font-bold text-lg">${news.title}</h3>
-                            <p>${news.description}</p>
-                            <small>Autors: ${news.author}</small><br>
-                            <small>Publicēts: ${new Date(news.updated_at).toLocaleDateString()}</small>
-                        `;
-                        newsList.appendChild(newsItem);
-                    });
+                    newsData = data;
+                    newsCurrentPage = 1;
+                    renderNews();
                 })
                 .catch(error => console.error('Error fetching news:', error));
 
@@ -148,5 +147,71 @@
                 })
                 .catch(error => console.error('Error:', error));
         });
+
+        // Render news items based on current page
+        function renderNews() {
+            const newsContainer = document.getElementById('newsContainer');
+            newsContainer.innerHTML = '';
+
+            const startIndex = (newsCurrentPage - 1) * newsItemsPerPage;
+            const newsPage = newsData.slice(startIndex, startIndex + newsItemsPerPage);
+
+            if (newsPage.length === 0) {
+                newsContainer.textContent = 'No news available.';
+            } else {
+                newsPage.forEach(news => {
+                    const newsItem = document.createElement('div');
+                    newsItem.className = 'bg-gray-100 dark:bg-gray-900 p-4 my-4 rounded shadow-md';
+                    newsItem.innerHTML = `
+                        <h3 class="font-bold text-lg">${news.title}</h3>
+                        <p>${news.description}</p>
+                        <small>Autors: ${news.author}</small><br>
+                        <small>Publicēts: ${new Date(news.updated_at).toLocaleDateString()}</small>
+                    `;
+                    newsContainer.appendChild(newsItem);
+                });
+            }
+            renderNewsPaginationControls();
+        }
+
+        // Render pagination controls for news using arrow symbols
+        function renderNewsPaginationControls() {
+            const paginationDiv = document.getElementById('news-pagination-controls');
+            paginationDiv.innerHTML = '';
+
+            const totalPages = Math.ceil(newsData.length / newsItemsPerPage);
+            if (totalPages <= 1) return; // No pagination needed
+
+            // Previous arrow button
+            const prevButton = document.createElement('button');
+            prevButton.textContent = '←';
+            prevButton.className = 'px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded';
+            prevButton.disabled = newsCurrentPage === 1;
+            prevButton.addEventListener('click', () => {
+                if (newsCurrentPage > 1) {
+                    newsCurrentPage--;
+                    renderNews();
+                }
+            });
+            paginationDiv.appendChild(prevButton);
+
+            // Page info
+            const pageInfo = document.createElement('span');
+            pageInfo.textContent = `Page ${newsCurrentPage} of ${totalPages}`;
+            paginationDiv.appendChild(pageInfo);
+
+            // Next arrow button
+            const nextButton = document.createElement('button');
+            nextButton.textContent = '→';
+            nextButton.className = 'px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded';
+            nextButton.disabled = newsCurrentPage === totalPages;
+            nextButton.addEventListener('click', () => {
+                if (newsCurrentPage < totalPages) {
+                    newsCurrentPage++;
+                    renderNews();
+                }
+            });
+            paginationDiv.appendChild(nextButton);
+        }
     </script>
 </x-app-layout>

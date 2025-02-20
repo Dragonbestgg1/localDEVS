@@ -47,8 +47,8 @@
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+        <div class="flex items-center gap-4 ">
+            <x-primary-button class="bg-gray-600 dark:bg-gray-200 text-gray-100 dark:text-gray-800 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

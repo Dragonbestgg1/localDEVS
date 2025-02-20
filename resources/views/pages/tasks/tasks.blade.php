@@ -23,7 +23,6 @@
 
       <!-- Task Table -->
       <div class="overflow-x-auto">
-        <!-- Use border-separate and border-spacing-y-2 for vertical spacing -->
         <table class="w-full min-w-full border-separate border-spacing-y-2">
           <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
@@ -44,12 +43,17 @@
           </tbody>
         </table>
       </div>
+
+      <!-- Pagination Controls -->
+      <div id="task-pagination-controls" class="mt-4 flex justify-center items-center space-x-4"></div>
     </div>
   </div>
 
   <script>
-    // Global array to store tasks data
-    let tasksData = [];
+    // Global variables for tasks pagination
+    let tasksList = [];
+    let currentPage = 1;
+    const itemsPerPage = 10;
 
     async function updateButton() {
       try {
@@ -79,72 +83,34 @@
       }
     }
 
-    async function loadTasks() {
-      try {
-        const response = await fetch('/tasks/all');
-        tasksData = await response.json();
-        const taskTableBody = document.getElementById('taskTableBody');
-
-        // Clear the placeholder text
-        taskTableBody.innerHTML = '';
-
-        if (tasksData.length === 0) {
-          taskTableBody.textContent = 'No tasks available.';
-        } else {
-          tasksData.forEach(function(task) {
-            const row = document.createElement('tr');
-            // Add hover and transition classes
-            row.classList.add(
-              'hover:bg-gray-100',
-              'dark:hover:bg-gray-700',
-              'transition-colors',
-              'duration-200'
-            );
-            row.innerHTML = `
-              <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
-                <a href="#" onclick='redirectToTask(${JSON.stringify(task)})'
-                   class="text-gray-900 dark:text-gray-200 hover:underline font-semibold">
-                  ${task.name}
-                </a>
-              </td>
-              <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
-                <!-- Use a neutral or transparent background in dark mode -->
-                <span class="font-mono text-xs sm:text-sm bg-gray-50 dark:bg-transparent p-1 rounded text-gray-900 dark:text-gray-100">
-                  ${task.code}
-                </span>
-              </td>
-            `;
-            taskTableBody.appendChild(row);
-          });
-        }
-      } catch (error) {
-        console.error('Error loading tasks:', error);
-        const taskTableBody = document.getElementById('taskTableBody');
-        taskTableBody.textContent = 'Error loading tasks!';
-      }
-    }
-
-    function displayTasks(tasks) {
+    // Render tasks for the current page (with pagination)
+    function renderTasks(tasks) {
       const taskTableBody = document.getElementById('taskTableBody');
       taskTableBody.innerHTML = '';
 
-      if (tasks.length === 0) {
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const tasksPage = tasks.slice(startIndex, startIndex + itemsPerPage);
+
+      if (tasksPage.length === 0) {
         taskTableBody.textContent = 'No tasks available.';
       } else {
-        tasks.forEach(function(task) {
+        tasksPage.forEach(function(task) {
           const row = document.createElement('tr');
+          // Make the entire row clickable with a pointer cursor
           row.classList.add(
+            'cursor-pointer',
             'hover:bg-gray-100',
             'dark:hover:bg-gray-700',
             'transition-colors',
             'duration-200'
           );
+          // Add an onclick event to the row
+          row.onclick = function() {
+            redirectToTask(task);
+          };
           row.innerHTML = `
             <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
-              <a href="#" onclick='redirectToTask(${JSON.stringify(task)})'
-                 class="text-gray-900 dark:text-gray-200 hover:underline font-semibold">
-                ${task.name}
-              </a>
+              ${task.name}
             </td>
             <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
               <span class="font-mono text-xs sm:text-sm bg-gray-50 dark:bg-transparent p-1 rounded text-gray-900 dark:text-gray-100">
@@ -155,21 +121,77 @@
           taskTableBody.appendChild(row);
         });
       }
+      renderTaskPaginationControls(tasks);
     }
 
+    // Render pagination controls for tasks using arrow symbols
+    function renderTaskPaginationControls(tasks) {
+      const paginationDiv = document.getElementById('task-pagination-controls');
+      paginationDiv.innerHTML = '';
+
+      const totalPages = Math.ceil(tasks.length / itemsPerPage);
+      if (totalPages <= 1) return; // No pagination needed
+
+      // Previous arrow button
+      const prevButton = document.createElement('button');
+      prevButton.textContent = '←';
+      prevButton.className = 'px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded';
+      prevButton.disabled = currentPage === 1;
+      prevButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          renderTasks(tasks);
+        }
+      });
+      paginationDiv.appendChild(prevButton);
+
+      // Page info
+      const pageInfo = document.createElement('span');
+      pageInfo.textContent = `${currentPage} of ${totalPages}`;
+      paginationDiv.appendChild(pageInfo);
+
+      // Next arrow button
+      const nextButton = document.createElement('button');
+      nextButton.textContent = '→';
+      nextButton.className = 'px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded';
+      nextButton.disabled = currentPage === totalPages;
+      nextButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderTasks(tasks);
+        }
+      });
+      paginationDiv.appendChild(nextButton);
+    }
+
+    // Fetch tasks from the server
+    async function loadTasks() {
+      try {
+        const response = await fetch('/tasks/all');
+        tasksList = await response.json();
+        currentPage = 1; // Reset pagination
+        renderTasks(tasksList);
+      } catch (error) {
+        console.error('Error loading tasks:', error);
+        const taskTableBody = document.getElementById('taskTableBody');
+        taskTableBody.textContent = 'Error loading tasks!';
+      }
+    }
+
+    // Store task data in localStorage and redirect to the full task view
     function redirectToTask(task) {
-      // Store the task data in localStorage and redirect
       localStorage.setItem('task', JSON.stringify(task));
       window.location.href = '/task-detail';
     }
 
-    // Search functionality: filter tasks by name (case-insensitive)
+    // Search functionality: filter tasks by name (case-insensitive) and paginate the results
     document.getElementById('taskSearch').addEventListener('input', function() {
       const query = this.value.toLowerCase();
-      const filteredTasks = tasksData.filter(task => task.name.toLowerCase().includes(query));
-      displayTasks(filteredTasks);
+      const filteredTasks = tasksList.filter(task => task.name.toLowerCase().includes(query));
+      currentPage = 1; // Reset to first page for new search results
+      renderTasks(filteredTasks);
     });
-    
+
     updateButton();
     loadTasks();
   </script>

@@ -4,18 +4,19 @@
 
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl sm:text-lg text-gray-800 dark:text-gray-200 leading-tight">
-      Izveidot sacensību
-    </h2>
+    <div class="flex items-center justify-between w-full">
+      <h2 class="font-semibold text-xl sm:text-lg text-gray-800 dark:text-gray-200 leading-tight">
+        Izveidot sacensību
+      </h2>
+      <button onclick="window.location.href='{{ route('competition') }}'"
+        id="backButton"
+        class="text-sm mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+        Atpakaļ
+      </button>
+    </div>
   </x-slot>
 
   <div class="max-w-7xl mx-auto px-4">
-    <!-- Back Button (optional) -->
-    <button onclick="window.location.href='{{ route('competition') }}'"
-      id="backButton"
-      class="text-sm mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
-      Atpakaļ
-    </button>
 
     <!-- Competition Creation Form -->
     <form action="{{ route('competitions.store') }}" method="POST" class="p-6">
@@ -135,9 +136,9 @@
   <!-- jQuery (if not already loaded) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    // Optional: Back button
+    // Optional: Back button (already handled via onclick, but you can keep this if needed)
     document.getElementById('backButton').addEventListener('click', () => {
-      window.location.href = "{{ route('competition') }}"; // Adjust route name if needed
+      window.location.href = "{{ route('competition') }}";
     });
 
     // Populate tasks checkboxes via AJAX
