@@ -29,9 +29,9 @@
       </div>
     </div>
 
-    <!-- News List -->
-    <div id="newsList" class="max-w-7xl">
-      <div id="newsContainer" class="p-6 text-gray-900 dark:text-gray-100">
+    <!-- News List (centered on wide screens) -->
+    <div id="newsList" class="max-w-7xl mx-auto flex justify-center">
+      <div id="newsContainer" class="p-6 w-full max-w-screen-xl text-gray-900 dark:text-gray-100">
         <!-- News items will be rendered here -->
       </div>
     </div>
@@ -185,7 +185,7 @@
 
       // Event listener for the "Sort by Date" button
       document.getElementById('sortDateButton').addEventListener('click', function() {
-        // Cycle through: no sort -> ascending -> descending -> no sort
+        // Cycle through: no sort -> descending -> ascending -> no sort
         if (newsSortOrder === "") {
           newsSortOrder = "desc";
         } else if (newsSortOrder === "desc") {
@@ -257,7 +257,7 @@
       } else {
         newsPage.forEach(news => {
           const newsItem = document.createElement('div');
-          newsItem.className = 'bg-gray-100 dark:bg-gray-900 p-4 my-4 rounded shadow-md';
+          newsItem.className = 'bg-gray-100 dark:bg-gray-900 p-4 my-4 w-full rounded shadow-md';
           newsItem.innerHTML = `
             <h3 class="font-bold text-lg">${news.title}</h3>
             <p>${news.description}</p>
