@@ -17,7 +17,7 @@
         <input
           id="taskSearch"
           type="text"
-          placeholder="Search by task name"
+          placeholder="Search by task name or #code"
           class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
       </div>
 
@@ -184,10 +184,18 @@
       window.location.href = '/task-detail';
     }
 
-    // Search functionality: filter tasks by name (case-insensitive) and paginate the results
+    // Search functionality: filter tasks by name or hex code (case-insensitive)
     document.getElementById('taskSearch').addEventListener('input', function() {
-      const query = this.value.toLowerCase();
-      const filteredTasks = tasksList.filter(task => task.name.toLowerCase().includes(query));
+      const query = this.value.toLowerCase().trim();
+      let filteredTasks;
+      if(query.startsWith('#')) {
+        // Remove the '#' and filter based on hex code
+        const hexQuery = query.slice(1);
+        filteredTasks = tasksList.filter(task => task.code.toLowerCase().includes(hexQuery));
+      } else {
+        // Filter based on task name
+        filteredTasks = tasksList.filter(task => task.name.toLowerCase().includes(query));
+      }
       currentPage = 1; // Reset to first page for new search results
       renderTasks(filteredTasks);
     });
