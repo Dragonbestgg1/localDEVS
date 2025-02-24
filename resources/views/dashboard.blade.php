@@ -5,6 +5,9 @@
     </h2>
   </x-slot>
 
+  <!-- Include Flatpickr CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
   <div class="relative">
     <!-- Notification -->
     <div id="loginNotification" 
@@ -14,7 +17,7 @@
       {{ __("You're logged in!") }}
     </div>
 
-    <!-- Search and Sort Container -->
+    <!-- Search and Calendar Date Range Filter Container -->
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 mb-4">
       <div class="flex flex-col sm:flex-row sm:items-center gap-2">
         <input
@@ -22,9 +25,18 @@
           type="text"
           placeholder="Search news..."
           class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
-        <button id="sortDateButton"
-                class="px-2 py-2 text-xs sm:text-sm bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 rounded">
-          Sort by Date <span id="sortDateIndicator"></span>
+
+        <!-- Single input field for date range -->
+        <input
+          id="newsDateRange"
+          type="text"
+          placeholder="Select date range"
+          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+
+        <!-- Clear date filter button -->
+        <button id="clearDateRange" 
+                class="px-2 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded">
+          Clear Date Filter
         </button>
       </div>
     </div>
@@ -44,7 +56,7 @@
          class="fixed bottom-24 right-4 border-2 border-gray-200 dark:border-gray-500 
                 sm:right-12 hidden w-full sm:max-w-md bg-white dark:bg-gray-800 
                 p-6 rounded-lg shadow-lg z-10">
-      <!-- Added close button -->
+      <!-- Close button -->
       <button id="formCloseButton" 
               class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
         &times;
@@ -82,18 +94,20 @@
                    bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 
                    shadow-lg flex items-center justify-center 
                    focus:outline-none focus:ring-2 focus:ring-gray-400 z-10">
-      <!-- Default icon: plus sign -->
       <span class="text-2xl">+</span>
     </button>
   </div>
 
+  <!-- Include Flatpickr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
-    // Global variables for news pagination, filtering, and sorting
+    // Global variables for news pagination and filtering
     let newsData = [];
     let newsCurrentPage = 1;
     const newsItemsPerPage = 10;
     let newsSearchQuery = "";
-    let newsSortOrder = ""; // "", "asc", or "desc"
+    let newsFromDate = "";
+    let newsToDate = "";
 
     document.addEventListener('DOMContentLoaded', function() {
       // Hide login notification after 5 seconds with fade-out effect
@@ -183,17 +197,29 @@
         renderNews();
       });
 
-      // Event listener for the "Sort by Date" button
-      document.getElementById('sortDateButton').addEventListener('click', function() {
-        // Cycle through: no sort -> descending -> ascending -> no sort
-        if (newsSortOrder === "") {
-          newsSortOrder = "desc";
-        } else if (newsSortOrder === "desc") {
-          newsSortOrder = "asc";
-        } else {
-          newsSortOrder = "";
+      // Initialize Flatpickr for the date range input
+      const dateRangePicker = flatpickr("#newsDateRange", {
+        mode: "range",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+          if(selectedDates.length === 2) {
+            newsFromDate = selectedDates[0].toISOString().substring(0,10);
+            newsToDate   = selectedDates[1].toISOString().substring(0,10);
+          } else {
+            newsFromDate = "";
+            newsToDate = "";
+          }
+          newsCurrentPage = 1; // Reset pagination on date range change
+          renderNews();
         }
-        updateSortDateIndicator();
+      });
+
+      // Clear Date Filter Button
+      document.getElementById('clearDateRange').addEventListener('click', function() {
+        dateRangePicker.clear(); // Clears the Flatpickr input
+        newsFromDate = "";
+        newsToDate = "";
+        newsCurrentPage = 1;
         renderNews();
       });
 
@@ -216,35 +242,28 @@
         .catch(error => console.error('Error:', error));
     });
 
-    // Update the sort indicator for the date button
-    function updateSortDateIndicator() {
-      const indicator = document.getElementById('sortDateIndicator');
-      if (newsSortOrder === "asc") {
-        indicator.innerHTML = '&uarr;';
-      } else if (newsSortOrder === "desc") {
-        indicator.innerHTML = '&darr;';
-      } else {
-        indicator.innerHTML = '';
-      }
-    }
-
-    // Render news items applying search filter, date sorting, and pagination
+    // Render news items applying search filter, date range filter, and pagination
     function renderNews() {
       const newsContainer = document.getElementById('newsContainer');
       newsContainer.innerHTML = '';
 
-      // Apply search filter
+      // Apply search filter on title and description
       let filteredNews = newsData.filter(news => {
         return news.title.toLowerCase().includes(newsSearchQuery) ||
                news.description.toLowerCase().includes(newsSearchQuery);
       });
 
-      // Apply date sorting if set
-      if (newsSortOrder !== "") {
-        filteredNews.sort((a, b) => {
-          const dateA = new Date(a.updated_at);
-          const dateB = new Date(b.updated_at);
-          return newsSortOrder === "asc" ? dateA - dateB : dateB - dateA;
+      // Apply date range filter if dates are set
+      if (newsFromDate || newsToDate) {
+        filteredNews = filteredNews.filter(news => {
+          const newsDate = new Date(news.updated_at).toISOString().substring(0, 10);
+          if (newsFromDate && newsToDate) {
+            return newsDate >= newsFromDate && newsDate <= newsToDate;
+          } else if (newsFromDate) {
+            return newsDate >= newsFromDate;
+          } else if (newsToDate) {
+            return newsDate <= newsToDate;
+          }
         });
       }
 

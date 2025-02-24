@@ -36,10 +36,6 @@
     .slide-hero {
       animation: slideHero 8s linear;
     }
-    /* Optional: Adjust for 4K screens if necessary */
-    @media (min-width: 3840px) {
-      /* Example: Adjust container sizes here if needed */
-    }
   </style>
 </head>
 
@@ -51,7 +47,9 @@
          style="background-image: url('{{ asset('images/img1.png') }}');">
       <!-- Dark overlay -->
       <div class="absolute inset-0 bg-black/50 transition-opacity duration-700"></div>
-
+      <!-- <img src="{{ asset('images/tech.png') }}" alt="Tech Overlay 1"
+               class="w-64 h-64 object-contain absolute top-64 right-32"
+               style="transform: rotate(180deg); z-index: 40;" /> -->
       <!-- Triangles container in the top right -->
       <div class="absolute top-20 right-[-15px] pointer-events-none z-[5]">
         <div class="relative w-20 md:w-32">

@@ -113,7 +113,7 @@
               ${task.name}
             </td>
             <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
-              <span class="font-mono text-xs sm:text-sm bg-gray-50 dark:bg-transparent p-1 rounded text-gray-900 dark:text-gray-100">
+              <span class="font-mono text-xs sm:text-sm bg-transparent p-1 rounded text-gray-900 dark:text-gray-100">
                 ${task.code}
               </span>
             </td>
