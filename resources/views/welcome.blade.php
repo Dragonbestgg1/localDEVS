@@ -94,14 +94,19 @@
   <div id="main-content" class="relative z-10 flex flex-col min-h-screen">
     <!-- Header -->
     <header class="relative w-full h-20 flex items-center shadow-md bg-white overflow-hidden fade-in">
-      <div class="absolute top-0 left-0 
-                  w-1/3 sm:w-1/4 md:w-60 lg:w-56 xl:w-56 2xl:w-64 
-                  h-full bg-gradient-to-r from-[#1b1b4d] to-[#3a3a80] 
-                  -skew-x-12 origin-left flex items-center 
-                  pl-2 sm:pl-3 md:pl-5 lg:pl-6 xl:pl-8 2xl:pl-10 -ml-2">
+    <div class="absolute top-0 left-0 
+            w-3/5
+            sm:w-3/5
+            md:w-2/3
+            lg:w-1/3 
+            xl:w-1/4
+            2xl:w-1/4
+            h-full bg-gradient-to-r from-[#1b1b4d] to-[#3a3a80] 
+            -skew-x-12 origin-left flex items-center 
+            pl-2 sm:pl-3 md:pl-5 lg:pl-6 xl:pl-8 2xl:pl-10 -ml-2">
         <img src="{{ asset('images/VTDTlogo.png') }}" alt="Logo"
-             class="skew-x-12 h-7 sm:h-10 w-auto mr-1 sm:mr-2 hidden md:block" />
-        <span class="skew-x-12 text-white font-bold text-sm sm:text-base md:text-xl p-2">
+             class="skew-x-12 h-7 sm:h-11 w-auto mr-1 sm:mr-2 hidden md:block" />
+        <span class="skew-x-12 text-white font-bold text-base sm:text-lg md:text-2xl p-2">
           VTDT DEVELOPERS
         </span>
       </div>
@@ -127,11 +132,15 @@
     <main class="relative flex flex-1">
       <!-- Single Hero Container (stays inside main-content) -->
       <div id="hero-container"
-           class="hero slide-hero absolute top-1/2 left-1/2 text-left max-w-full sm:max-w-3xl text-white transition-all duration-700 ease-in-out fade-in z-20 p-4 mx-4">
+      class="hero slide-hero absolute top-1/2 left-1/2 
+            w-9/12 max-w-[75%]
+            sm:max-w-5xl
+            transform -translate-x-1/2 -translate-y-1/2 
+            text-white transition-all duration-700 ease-in-out fade-in z-20 p-4">      
         <p class="text-xs sm:text-sm md:text-base uppercase font-semibold tracking-widest mb-4">
           Best IT Solution Provider
         </p>
-        <h1 id="hero-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
+        <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
           Excellent IT Services for Your Success
         </h1>
         <p id="hero-text" class="mt-6 text-sm sm:text-base md:text-lg mb-6">
@@ -179,7 +188,7 @@
         // Update the inner HTML without removing the container
         heroContainer.innerHTML = `
           <p class="text-xs sm:text-sm md:text-base uppercase font-semibold tracking-widest mb-4">Best IT Solution Provider</p>
-          <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
+          <h1 class="text-3xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
             ${slides[index].text}
           </h1>
           <p class="mt-6 text-sm sm:text-base md:text-lg mb-6">

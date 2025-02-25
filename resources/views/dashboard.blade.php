@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="leading-tight">
+    <h2 class="leading-tight text-3xl">
       {{ __('Jaunumi') }}
     </h2>
   </x-slot>
@@ -24,14 +24,14 @@
           id="newsSearch"
           type="text"
           placeholder="Meklēt jaunumus..."
-          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full sm:flex-1 p-1 sm:p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
 
         <!-- Single input field for date range -->
         <input
           id="newsDateRange"
           type="text"
           placeholder="Izvēlēties datumu apgabalu..."
-          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full sm:flex-1 p-1 sm:p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
 
         <!-- Clear date filter button -->
         <button id="clearDateRange" 
@@ -94,7 +94,7 @@
                    bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-100 
                    shadow-lg flex items-center justify-center 
                    focus:outline-none focus:ring-2 focus:ring-gray-400 z-10">
-      <span class="text-2xl">+</span>
+      <span class="text-3xl">+</span>
     </button>
   </div>
 
@@ -142,17 +142,17 @@
       fab.addEventListener('click', function() {
         if (floatingForm.classList.contains('hidden')) {
           floatingForm.classList.remove('hidden');
-          fab.innerHTML = '<span class="text-2xl">&times;</span>';
+          fab.innerHTML = '<span class="text-3xl">&times;</span>';
         } else {
           floatingForm.classList.add('hidden');
-          fab.innerHTML = '<span class="text-2xl">+</span>';
+          fab.innerHTML = '<span class="text-3xl">+</span>';
         }
       });
 
       // Close button inside the form
       formCloseButton.addEventListener('click', function() {
         floatingForm.classList.add('hidden');
-        fab.innerHTML = '<span class="text-2xl">+</span>';
+        fab.innerHTML = '<span class="text-3xl">+</span>';
       });
 
       // Fetch decrypted author name and surname from the server
@@ -181,7 +181,7 @@
           alert('News item added successfully');
           document.getElementById('newsForm').reset();
           floatingForm.classList.add('hidden');
-          fab.innerHTML = '<span class="text-2xl">+</span>';
+          fab.innerHTML = '<span class="text-3xl">+</span>';
           location.reload();
         })
         .catch(error => {
@@ -278,10 +278,10 @@
           const newsItem = document.createElement('div');
           newsItem.className = 'bg-gray-100 dark:bg-gray-900 p-4 my-4 w-full rounded shadow-md';
           newsItem.innerHTML = `
-            <h3 class="font-bold text-lg">${news.title}</h3>
-            <p>${news.description}</p>
-            <small>Autors: ${news.author}</small><br>
-            <small>Publicēts: ${new Date(news.updated_at).toLocaleDateString()}</small>
+            <h3 class="font-bold text-xl">${news.title}</h3>
+            <p class="text-lg">${news.description}</p>
+            <small class="text-base">Autors: ${news.author}</small><br>
+            <small class="text-base">Publicēts: ${new Date(news.updated_at).toLocaleDateString()}</small>
           `;
           newsContainer.appendChild(newsItem);
         });

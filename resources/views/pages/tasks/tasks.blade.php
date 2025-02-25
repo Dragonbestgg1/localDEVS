@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl sm:text-lg text-gray-800 dark:text-gray-200 leading-tight">
+    <h2 class="font-semibold text-xl sm:text-3xl text-gray-800 dark:text-gray-200 leading-tight">
       Visi Uzdevumi
     </h2>
   </x-slot>
@@ -11,14 +11,14 @@
       <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
         <button
           id="routeButton"
-          class="px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 rounded shadow">
+          class="px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 rounded shadow">
           Loading...
         </button>
         <input
   id="taskSearch"
   type="text"
   placeholder="Search by task name or #code"
-  class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+  class="w-full sm:flex-1 p-1 sm:p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
    </div>
 
       <!-- Task Table -->
@@ -26,17 +26,17 @@
         <table class="w-full min-w-full border-separate border-spacing-y-2">
           <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
-              <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Task Name
               </th>
-              <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th scope="col" class="px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Code
               </th>
             </tr>
           </thead>
           <tbody id="taskTableBody" class="bg-white dark:bg-gray-800">
             <tr>
-              <td colspan="3" class="px-2 py-1 sm:px-6 sm:py-4 text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
+              <td colspan="3" class="px-2 py-1 sm:px-6 sm:py-4 text-center text-sm sm:text-base text-gray-500 dark:text-gray-300">
                 Loading tasks...
               </td>
             </tr>
@@ -109,11 +109,11 @@
             redirectToTask(task);
           };
           row.innerHTML = `
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">
               ${task.name}
             </td>
             <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">
-              <span class="font-mono text-xs sm:text-sm bg-transparent p-1 rounded text-gray-900 dark:text-gray-100">
+              <span class="font-mono text-sm sm:text-base bg-transparent p-1 rounded text-gray-900 dark:text-gray-100">
                 ${task.code}
               </span>
             </td>
