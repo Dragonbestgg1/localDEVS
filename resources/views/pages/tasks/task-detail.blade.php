@@ -10,9 +10,9 @@
     </div>
   </x-slot>
 
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto px-2">
     <!-- Task Detail Card -->
-    <div id="taskDetail" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6">
+    <div id="taskDetail" class="overflow-hidden p-6">
       <p class="text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
         Loading task data...
       </p>

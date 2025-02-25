@@ -100,7 +100,7 @@
                   -skew-x-12 origin-left flex items-center 
                   pl-2 sm:pl-3 md:pl-5 lg:pl-6 xl:pl-8 2xl:pl-10 -ml-2">
         <img src="{{ asset('images/VTDTlogo.png') }}" alt="Logo"
-             class="skew-x-12 h-6 sm:h-8 w-auto mr-1 sm:mr-2 hidden md:block" />
+             class="skew-x-12 h-7 sm:h-10 w-auto mr-1 sm:mr-2 hidden md:block" />
         <span class="skew-x-12 text-white font-bold text-sm sm:text-base md:text-xl p-2">
           VTDT DEVELOPERS
         </span>
@@ -131,10 +131,10 @@
         <p class="text-xs sm:text-sm md:text-base uppercase font-semibold tracking-widest mb-4">
           Best IT Solution Provider
         </p>
-        <h1 id="hero-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+        <h1 id="hero-title" class="text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
           Excellent IT Services for Your Success
         </h1>
-        <p id="hero-text" class="mt-6 text-xs sm:text-sm md:text-base mb-6">
+        <p id="hero-text" class="mt-6 text-sm sm:text-base md:text-lg mb-6">
           Providing top-tier solutions with cutting-edge technology and expertise.
         </p>
         <a href="#"
@@ -179,10 +179,10 @@
         // Update the inner HTML without removing the container
         heroContainer.innerHTML = `
           <p class="text-xs sm:text-sm md:text-base uppercase font-semibold tracking-widest mb-4">Best IT Solution Provider</p>
-          <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+          <h1 class="text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
             ${slides[index].text}
           </h1>
-          <p class="mt-6 text-xs sm:text-sm md:text-base mb-6">
+          <p class="mt-6 text-sm sm:text-base md:text-lg mb-6">
             ${slides[index].subtext}
           </p>
           <a href="#"
@@ -213,7 +213,7 @@
     setInterval(() => {
       currentIndex = (currentIndex + 1) % slides.length;
       changeSlide(currentIndex);
-    }, 8000);
+    }, 7500);
   </script>
 </body>
 </html>

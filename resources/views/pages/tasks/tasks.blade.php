@@ -6,7 +6,7 @@
   </x-slot>
 
   <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-2 sm:p-6">
+    <div class="overflow-hidden p-2 sm:p-6">
       <!-- Combined Search & Action Container -->
       <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
         <button
@@ -15,11 +15,11 @@
           Loading...
         </button>
         <input
-          id="taskSearch"
-          type="text"
-          placeholder="Search by task name or #code"
-          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
-      </div>
+  id="taskSearch"
+  type="text"
+  placeholder="Search by task name or #code"
+  class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+   </div>
 
       <!-- Task Table -->
       <div class="overflow-x-auto">

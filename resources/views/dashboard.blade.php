@@ -23,20 +23,20 @@
         <input
           id="newsSearch"
           type="text"
-          placeholder="Search news..."
-          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+          placeholder="Meklēt jaunumus..."
+          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
 
         <!-- Single input field for date range -->
         <input
           id="newsDateRange"
           type="text"
-          placeholder="Select date range"
-          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+          placeholder="Izvēlēties datumu apgabalu..."
+          class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
 
         <!-- Clear date filter button -->
         <button id="clearDateRange" 
                 class="px-2 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded">
-          Clear Date Filter
+          Notīrīt datumu filtru
         </button>
       </div>
     </div>

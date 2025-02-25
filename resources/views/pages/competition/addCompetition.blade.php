@@ -30,9 +30,7 @@
           id="name"
           name="name"
           required
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500">
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- Duration -->
@@ -43,9 +41,7 @@
           id="time"
           name="time"
           placeholder="e.g., 2h 30m"
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500">
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- From -->
@@ -55,9 +51,7 @@
           type="datetime-local"
           id="from"
           name="from"
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500">
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- Till -->
@@ -67,9 +61,7 @@
           type="datetime-local"
           id="till"
           name="till"
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500">
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- Description -->
@@ -79,9 +71,7 @@
           id="description"
           name="description"
           required
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500 resize-none"></textarea>
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 resize-none"></textarea>
       </div>
 
       <!-- Information -->
@@ -91,9 +81,7 @@
           id="information"
           name="information"
           required
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500 resize-none"></textarea>
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 resize-none"></textarea>
       </div>
 
       <!-- Difficulty -->
@@ -103,30 +91,30 @@
           id="difficulty"
           name="difficulty"
           required
-          class="w-full p-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100
-                 border border-gray-300 dark:border-gray-600 rounded focus:outline-none
-                 focus:ring-2 focus:ring-gray-500">
+          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
       </div>
 
-      <!-- Tasks (3 per row) -->
+      <!-- Tasks with Search and Pagination -->
       <div class="mb-4">
         <label for="tasks" class="block mb-1 text-gray-700 dark:text-gray-300">Tasks:</label>
-        <!-- Use a grid with 3 columns for the checkboxes -->
-        <div id="tasks" class="grid grid-cols-3 gap-4">
-          <!-- Checkboxes will be populated by jQuery -->
-        </div>
+        <!-- Search Bar -->
+        <input type="text" id="taskSearch" placeholder="Search tasks"
+          class="w-full p-2 mb-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+        <!-- Tasks grid -->
+        <div id="tasks" class="grid grid-cols-3 gap-4"></div>
+        <!-- Pagination controls -->
+        <div id="pagination" class="mt-4 flex justify-center"></div>
       </div>
 
       <!-- Submit Button -->
       <div class="mt-4">
         <button
           type="submit"
-          class="w-full px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100
-                 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+          class="w-full px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
           Submit
         </button>
       </div>
@@ -141,29 +129,97 @@
       window.location.href = "{{ route('competition') }}";
     });
 
-    // Populate tasks checkboxes via AJAX
+    // Variables to hold tasks data and pagination state
+    let tasksData = [];
+    let filteredTasks = [];
+    let currentPage = 0;
+    const tasksPerPage = 27;
+
+    // Render the tasks for the current page
+    function renderTasks() {
+      const tasksDiv = $('#tasks');
+      tasksDiv.empty();
+      const start = currentPage * tasksPerPage;
+      const end = start + tasksPerPage;
+      const tasksToShow = filteredTasks.slice(start, end);
+      tasksToShow.forEach(function(task) {
+        tasksDiv.append(`
+          <label class="flex items-center space-x-2">
+            <input type="checkbox" name="tasks[]" value="${task.id}" class="form-checkbox h-5 w-5 rounded">
+            <span class="text-gray-900 dark:text-gray-100">${task.name}</span>
+          </label>
+        `);
+      });
+    }
+
+    // Render pagination controls if needed
+    function renderPagination() {
+      const paginationDiv = $('#pagination');
+      paginationDiv.empty();
+      const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+      if (totalPages <= 1) return; // No pagination needed
+
+      // Previous button
+      if (currentPage > 0) {
+        paginationDiv.append('<button id="prevPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded mr-2">Previous</button>');
+      }
+      // Current page indicator
+      paginationDiv.append(`<span class="px-3 py-1">Page ${currentPage + 1} of ${totalPages}</span>`);
+      // Next button
+      if (currentPage < totalPages - 1) {
+        paginationDiv.append('<button id="nextPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded ml-2">Next</button>');
+      }
+    }
+
+    // Filter tasks based on the search query and update the view
+    function filterTasks(query) {
+      if (query === '') {
+        filteredTasks = tasksData;
+      } else {
+        filteredTasks = tasksData.filter(task => task.name.toLowerCase().includes(query.toLowerCase()));
+      }
+      currentPage = 0;
+      renderTasks();
+      renderPagination();
+    }
+
     $(document).ready(function() {
+      // Search input event
+      $('#taskSearch').on('input', function() {
+        const query = $(this).val();
+        filterTasks(query);
+      });
+
+      // Fetch tasks via AJAX
       $.ajax({
-        url: '{{ url('/tasks/all') }}',  // Corrected URL
+        url: '{{ url('/tasks/all') }}',
         type: 'GET',
         success: function(response) {
-          const tasksDiv = $('#tasks');
-          response.forEach(function(task) {
-            tasksDiv.append(`
-              <label class="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  name="tasks[]"
-                  value="${task.id}"
-                  class="form-checkbox h-5 w-5 text-indigo-600 rounded"
-                >
-                <span class="text-gray-900 dark:text-gray-100">${task.name}</span>
-              </label>
-            `);
-          });
+          tasksData = response;
+          filteredTasks = tasksData; // Initially, no filtering
+          renderTasks();
+          renderPagination();
         },
         error: function() {
           $('#tasks').text('Unable to load tasks.');
+        }
+      });
+
+      // Delegate pagination button events
+      $('#pagination').on('click', '#prevPage', function() {
+        if (currentPage > 0) {
+          currentPage--;
+          renderTasks();
+          renderPagination();
+        }
+      });
+
+      $('#pagination').on('click', '#nextPage', function() {
+        const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          renderTasks();
+          renderPagination();
         }
       });
     });
