@@ -5,12 +5,12 @@
 <x-app-layout>
   <x-slot name="header">
     <div class="flex items-center justify-between w-full">
-      <h2 class="font-semibold text-xl sm:text-lg text-gray-800 dark:text-gray-200 leading-tight">
+      <h2 class="font-semibold text-xl sm:text-3xl text-gray-800 dark:text-gray-200 leading-tight">
         Izveidot sacensību
       </h2>
       <button onclick="window.location.href='{{ route('competition') }}'"
         id="backButton"
-        class="text-sm mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
+        class="text-base mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-gray-500">
         Atpakaļ
       </button>
     </div>
@@ -24,74 +24,74 @@
 
       <!-- Name -->
       <div class="mb-4">
-        <label for="name" class="block mb-1 text-gray-700 dark:text-gray-300">Name:</label>
+        <label for="name" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Name:</label>
         <input
           type="text"
           id="name"
           name="name"
           required
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- Duration -->
       <div class="mb-4">
-        <label for="time" class="block mb-1 text-gray-700 dark:text-gray-300">Duration:</label>
+        <label for="time" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Duration:</label>
         <input
           type="text"
           id="time"
           name="time"
           placeholder="e.g., 2h 30m"
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- From -->
       <div class="mb-4">
-        <label for="from" class="block mb-1 text-gray-700 dark:text-gray-300">From:</label>
+        <label for="from" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">From:</label>
         <input
           type="datetime-local"
           id="from"
           name="from"
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- Till -->
       <div class="mb-4">
-        <label for="till" class="block mb-1 text-gray-700 dark:text-gray-300">Till:</label>
+        <label for="till" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Till:</label>
         <input
           type="datetime-local"
           id="till"
           name="till"
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
 
       <!-- Description -->
       <div class="mb-4">
-        <label for="description" class="block mb-1 text-gray-700 dark:text-gray-300">Description:</label>
+        <label for="description" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Description:</label>
         <textarea
           id="description"
           name="description"
           required
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 resize-none"></textarea>
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 resize-none"></textarea>
       </div>
 
       <!-- Information -->
       <div class="mb-4">
-        <label for="information" class="block mb-1 text-gray-700 dark:text-gray-300">Information:</label>
+        <label for="information" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Information:</label>
         <textarea
           id="information"
           name="information"
           required
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 resize-none"></textarea>
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 resize-none"></textarea>
       </div>
 
       <!-- Difficulty -->
       <div class="mb-4">
-        <label for="difficulty" class="block mb-1 text-gray-700 dark:text-gray-300">Difficulty:</label>
+        <label for="difficulty" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Difficulty:</label>
         <select
           id="difficulty"
           name="difficulty"
           required
-          class="w-full p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
@@ -100,10 +100,10 @@
 
       <!-- Tasks with Search and Pagination -->
       <div class="mb-4">
-        <label for="tasks" class="block mb-1 text-gray-700 dark:text-gray-300">Tasks:</label>
+        <label for="tasks" class="block mb-1 text-lg text-gray-700 dark:text-gray-300">Tasks:</label>
         <!-- Search Bar -->
         <input type="text" id="taskSearch" placeholder="Search tasks"
-          class="w-full p-2 mb-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+          class="w-full p-2 mb-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
         <!-- Tasks grid -->
         <div id="tasks" class="grid grid-cols-3 gap-4"></div>
         <!-- Pagination controls -->
@@ -164,7 +164,7 @@
         paginationDiv.append('<button id="prevPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded mr-2">Previous</button>');
       }
       // Current page indicator
-      paginationDiv.append(`<span class="px-3 py-1">Page ${currentPage + 1} of ${totalPages}</span>`);
+      paginationDiv.append(`<span class="px-3 py-1">${currentPage + 1} of ${totalPages}</span>`);
       // Next button
       if (currentPage < totalPages - 1) {
         paginationDiv.append('<button id="nextPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded ml-2">Next</button>');

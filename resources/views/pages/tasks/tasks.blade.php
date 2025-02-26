@@ -15,12 +15,11 @@
           Loading...
         </button>
         <input
-  id="taskSearch"
-  type="text"
-  placeholder="Search by task name or #code"
-  class="w-full sm:flex-1 p-1 sm:p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
-   </div>
-
+          id="taskSearch"
+          type="text"
+          placeholder="Search by task name or #code"
+          class="w-full sm:flex-1 p-1 sm:p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+      </div>
       <!-- Task Table -->
       <div class="overflow-x-auto">
         <table class="w-full min-w-full border-separate border-spacing-y-2">

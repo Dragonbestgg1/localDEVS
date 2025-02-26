@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="font-semibold text-xl sm:text-lg text-gray-800 dark:text-gray-200 leading-tight">
+    <h2 class="font-semibold text-xl sm:text-3xl text-gray-800 dark:text-gray-200 leading-tight">
       All Competitions
     </h2>
   </x-slot>
@@ -11,10 +11,10 @@
       <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
         <button
           id="routeButton"
-          class="px-2 py-1 sm:px-4 sm:py-2 text-xs sm:text-sm bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 rounded shadow">
+          class="px-2 py-1 sm:px-4 sm:py-2 text-sm sm:text-base bg-gray-100 dark:bg-gray-600 hover:bg-gray-200 dark:hover:bg-gray-500 text-gray-800 dark:text-gray-200 rounded shadow">
           Loading...
         </button>
-        <input type="text" id="searchBar" placeholder="Search competitions..."  class="w-full sm:flex-1 p-1 sm:p-2 text-xs sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
+        <input type="text" id="searchBar" placeholder="Search competitions..."  class="w-full sm:flex-1 p-1 sm:p-2 text-sm sm:text-base bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500">
       </div>
       
       <!-- Competitions Table -->
@@ -23,38 +23,38 @@
           <thead class="bg-gray-50 dark:bg-gray-700">
             <tr>
               <!-- Name column: non-sortable -->
-              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Name
               </th>
               <!-- Sortable columns -->
-              <th data-sort-field="time" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th data-sort-field="time" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Time <span id="sortIndicator-time"></span>
               </th>
-              <th data-sort-field="from" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th data-sort-field="from" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 From <span id="sortIndicator-from"></span>
               </th>
-              <th data-sort-field="till" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th data-sort-field="till" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Till <span id="sortIndicator-till"></span>
               </th>
-              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Description
               </th>
-              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Information
               </th>
               <!-- Difficulty column: non-sortable -->
-              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th class="px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Difficulty
               </th>
               <!-- Tasks column: sortable by task count -->
-              <th data-sort-field="tasks" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-200 tracking-wider">
+              <th data-sort-field="tasks" class="sortable px-2 py-1 sm:px-6 sm:py-3 text-left text-sm sm:text-base font-medium text-gray-500 dark:text-gray-200 tracking-wider">
                 Tasks <span id="sortIndicator-tasks"></span>
               </th>
             </tr>
           </thead>
           <tbody id="competition-table-body" class="bg-white dark:bg-gray-800">
             <tr>
-              <td colspan="8" class="px-2 py-1 sm:px-6 sm:py-4 text-center text-xs sm:text-sm text-gray-500 dark:text-gray-300">
+              <td colspan="8" class="px-2 py-1 sm:px-6 sm:py-4 text-center text-sm sm:text-base text-gray-500 dark:text-gray-300">
                 Loading competitions...
               </td>
             </tr>
@@ -221,14 +221,14 @@
             redirectToCompetition(competition);
           };
           row.innerHTML = `
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${competition.name}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${competition.time}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${competition.from}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${competition.till}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${truncatedDescription}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${truncatedInformation}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${competition.difficulty}</td>
-            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-xs sm:text-sm">${tasksDisplay}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${competition.name}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${competition.time}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${competition.from}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${competition.till}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${truncatedDescription}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${truncatedInformation}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${competition.difficulty}</td>
+            <td class="px-2 py-1 sm:px-6 sm:py-4 whitespace-nowrap text-sm sm:text-base">${tasksDisplay}</td>
           `;
           competitionTableBody.appendChild(row);
         });

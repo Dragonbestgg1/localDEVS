@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-slot name="header">
-    <h2 class="leading-tight text-3xl">
+    <h2 class="leading-tight text-xl sm:text-3xl">
       {{ __('Jaunumi') }}
     </h2>
   </x-slot>
@@ -43,7 +43,7 @@
 
     <!-- News List (centered on wide screens) -->
     <div id="newsList" class="max-w-7xl mx-auto flex justify-center">
-      <div id="newsContainer" class="p-6 w-full max-w-screen-xl text-gray-900 dark:text-gray-100">
+      <div id="newsContainer" class="p-2 sm:p-6 w-full max-w-screen-xl text-gray-900 dark:text-gray-100">
         <!-- News items will be rendered here -->
       </div>
     </div>
@@ -53,9 +53,9 @@
 
     <!-- Floating Form (hidden by default) -->
     <div id="floatingForm" 
-         class="fixed bottom-24 right-4 border-2 border-gray-200 dark:border-gray-500 
-                sm:right-12 hidden w-full sm:max-w-md bg-white dark:bg-gray-800 
-                p-6 rounded-lg shadow-lg z-10">
+      class="fixed bottom-24 right-4 border-2 border-gray-200 dark:border-gray-500 
+            sm:right-12 hidden w-11/12 max-w-xs sm:max-w-md bg-white dark:bg-gray-800 
+            p-6 rounded-lg shadow-lg z-10">
       <!-- Close button -->
       <button id="formCloseButton" 
               class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
@@ -312,7 +312,7 @@
 
       // Page info
       const pageInfo = document.createElement('span');
-      pageInfo.textContent = `Page ${newsCurrentPage} of ${totalPages}`;
+      pageInfo.textContent = `${newsCurrentPage} of ${totalPages}`;
       paginationDiv.appendChild(pageInfo);
 
       // Next arrow button
