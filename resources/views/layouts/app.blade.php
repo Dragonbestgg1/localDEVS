@@ -21,6 +21,38 @@
       document.documentElement.classList.add('dark');
     }
   </script>
+  <style>
+  /* Base scrollbar styling (for non-dark mode) */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+
+  /* Force dark scrollbar styling when dark mode is active.
+     Even though dark mode elsewhere gives white backgrounds (via dark:bg-white),
+     we want the scrollbar elements to have dark colors. */
+  html.dark ::-webkit-scrollbar-track {
+    background: #111827 !important;
+  }
+  html.dark ::-webkit-scrollbar-thumb {
+    background-color: #111827 !important;
+  }
+
+  /* Firefox scrollbar styling */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+  }
+  html.dark {
+    scrollbar-color: #4a5568 #111827 !important;
+  }
+</style>
 </head>
 
 <body class="font-sans antialiased 

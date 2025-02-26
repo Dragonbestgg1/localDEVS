@@ -27,7 +27,7 @@
         @click="userDropdownOpen = !userDropdownOpen"
         class="flex items-center w-full focus:outline-none">
         <div
-          class="ml-3 text-base font-medium"
+          class="ml-3 text-lg font-medium"
           x-bind:class="darkMode ? 'text-gray-200' : 'text-gray-900'">
           {{ Auth::user()->name }} {{ Auth::user()->surname }}
         </div>
@@ -52,7 +52,7 @@
         x-bind:class="darkMode ? 'bg-gray-800' : 'bg-gray-200'">
         <x-responsive-nav-link
           :href="route('profile.edit')"
-          class="block px-4 py-2"
+          class="block px-4 py-2 text-lg"
           x-bind:class="darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-300'">
           Profile
         </x-responsive-nav-link>
@@ -61,7 +61,7 @@
           <x-responsive-nav-link
             :href="route('logout')"
             onclick="event.preventDefault(); this.closest('form').submit();"
-            class="block px-4 py-2"
+            class="block px-4 py-2 text-lg"
             x-bind:class="darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-300'">
             Log Out
           </x-responsive-nav-link>
@@ -70,63 +70,63 @@
     </div>
 
     <!-- "Navigācijas pogas" Title -->
-    <div class="px-3 mt-8 pb-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-700'">
+    <div class="px-3 mt-8 pb-2 text-lg" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-700'">
       Navigācijas pogas
     </div>
 
     <!-- Navigation Links -->
-    <div class="mt-2 flex-1 px-2 space-y-2 flex flex-col overflow-y-auto">
+    <div class="mt-2 text-lg flex-1 px-2 space-y-2 flex flex-col overflow-y-auto">
       <x-nav-link
         :href="route('dashboard')"
         :active="request()->routeIs('dashboard')"
-        class="flex items-center py-2 px-3 rounded-md transition"
+        class="flex items-center py-2 px-3 rounded-md transition text-lg"
         x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
-        <x-ri-news-fill class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
+        <x-ri-news-fill class="w-5 h-5 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Jaunumi') }}
       </x-nav-link>
 
       <x-nav-link
         :href="route('tasks')"
         :active="request()->routeIs('tasks')"
-        class="flex items-center py-2 px-3 rounded-md transition"
+        class="flex items-center py-2 px-3 text-lg rounded-md transition"
         x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
-        <x-fas-tasks class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
+        <x-fas-tasks class="w-5 h-5 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Uzdevumi') }}
       </x-nav-link>
 
       <x-nav-link
         :href="route('competition')"
         :active="request()->routeIs('competition')"
-        class="flex items-center py-2 px-3 rounded-md transition"
+        class="flex items-center py-2 px-3 text-lg rounded-md transition"
         x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
-        <x-maki-racetrack class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
+        <x-maki-racetrack class="w-5 h-5 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Sacensības') }}
       </x-nav-link>
 
       <x-nav-link
         :href="route('submitions')"
         :active="request()->routeIs('submitions')"
-        class="flex items-center py-2 px-3 rounded-md transition"
+        class="flex items-center py-2 px-3 text-lg rounded-md transition"
         x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
-        <x-ionicon-mail class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
+        <x-ionicon-mail class="w-5 h-5 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Iesniegumi') }}
       </x-nav-link>
 
       <x-nav-link
         :href="route('leaderboard')"
         :active="request()->routeIs('leaderboard')"
-        class="flex items-center py-2 px-3 rounded-md transition"
+        class="flex items-center py-2 px-3 text-lg rounded-md transition"
         x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
-        <x-iconoir-leaderboard-star class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
+        <x-iconoir-leaderboard-star class="w-5 h-5 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Līderu saraksts') }}
       </x-nav-link>
 
       <x-nav-link
         :href="route('code_space')"
         :active="request()->routeIs('code_space')"
-        class="flex items-center py-2 px-3 rounded-md transition"
+        class="flex items-center py-2 px-3 text-lg rounded-md transition"
         x-bind:class="darkMode ? 'hover:bg-gray-800 text-gray-300' : 'hover:bg-gray-300 text-gray-900'">
-        <x-fas-brain class="w-4 h-4 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
+        <x-fas-brain class="w-5 h-5 mr-2" x-bind:class="darkMode ? 'text-gray-300' : 'text-gray-900'" />
         {{ __('Trenēties') }}
       </x-nav-link>
     </div>
@@ -135,10 +135,10 @@
     <div class="p-6 pb-12 mt-auto">
       <span @click="darkMode = !darkMode" class="cursor-pointer">
         <template x-if="!darkMode">
-          <x-bi-sun class="w-5 h-5 text-gray-500" />
+          <x-bi-sun class="w-6 h-6 text-gray-500" />
         </template>
         <template x-if="darkMode">
-          <x-bi-moon-fill class="w-5 h-5 text-white" />
+          <x-bi-moon-fill class="w-6 h-6 text-white" />
         </template>
       </span>
     </div>
