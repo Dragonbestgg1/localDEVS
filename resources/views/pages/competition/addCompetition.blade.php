@@ -152,23 +152,18 @@
       });
     }
 
-    // Render pagination controls if needed
     function renderPagination() {
       const paginationDiv = $('#pagination');
       paginationDiv.empty();
       const totalPages = Math.ceil(filteredTasks.length / tasksPerPage);
-      if (totalPages <= 1) return; // No pagination needed
+      if (totalPages <= 1) return;
 
-      // Previous button
-      if (currentPage > 0) {
-        paginationDiv.append('<button id="prevPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded mr-2">Previous</button>');
-      }
-      // Current page indicator
+      const prevButton = `<button id="prevPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded mr-2" ${currentPage <= 0 ? 'disabled' : ''}>←</button>`;
+      const nextButton = `<button id="nextPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded ml-2" ${currentPage >= totalPages - 1 ? 'disabled' : ''}>→</button>`;
+
+      paginationDiv.append(prevButton);
       paginationDiv.append(`<span class="px-3 py-1">${currentPage + 1} of ${totalPages}</span>`);
-      // Next button
-      if (currentPage < totalPages - 1) {
-        paginationDiv.append('<button id="nextPage" class="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 rounded ml-2">Next</button>');
-      }
+      paginationDiv.append(nextButton);
     }
 
     // Filter tasks based on the search query and update the view
@@ -184,7 +179,6 @@
     }
 
     $(document).ready(function() {
-      // Search input event
       $('#taskSearch').on('input', function() {
         const query = $(this).val();
         filterTasks(query);
